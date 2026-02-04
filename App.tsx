@@ -49,7 +49,7 @@ const App: React.FC = () => {
     document.documentElement.className = newTheme;
     // Update body element
     document.body.className = newTheme;
-    
+
     if (newTheme === 'light') {
       document.documentElement.classList.add('light');
       document.documentElement.classList.remove('dark');
@@ -178,9 +178,37 @@ const App: React.FC = () => {
     <div className="flex flex-col min-h-screen transition-colors duration-500 pb-20 bg-slate-50 dark:bg-[#020617]">
       {/* Floating Glassy Top Navigation */}
       <nav className="nav-glass px-6 py-4 flex items-center justify-between lg:grid lg:grid-cols-3 gap-4">
-        {/* Left: Empty or minimal branding */}
+        {/* Left: Logo and Branding with Glassy Glow Effect */}
         <div className="flex items-center gap-3">
-          {/* Removed logo and text as requested */}
+          <div className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 dark:from-blue-500/10 dark:to-purple-500/10 backdrop-blur-xl border border-blue-400/30 dark:border-blue-400/20 shadow-[0_0_30px_rgba(59,130,246,0.3)] dark:shadow-[0_0_30px_rgba(59,130,246,0.2)] hover:shadow-[0_0_40px_rgba(59,130,246,0.4)] dark:hover:shadow-[0_0_40px_rgba(59,130,246,0.3)] transition-all duration-300">
+            {/* Logo Icon with Glow */}
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl blur-md opacity-60 animate-pulse"></div>
+              <div className="relative w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-6 h-6 text-white"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="9" y1="15" x2="15" y2="15"></line>
+                  <line x1="9" y1="18" x2="15" y2="18"></line>
+                  <circle cx="12" cy="11" r="1.5"></circle>
+                </svg>
+              </div>
+            </div>
+            {/* App Name with Gradient */}
+            <div className="hidden sm:block">
+              <h1 className="text-lg font-black bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent tracking-tight">
+                BillAgent Pro
+              </h1>
+            </div>
+          </div>
         </div>
 
         {/* Center: Desktop Links */}

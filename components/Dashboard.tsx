@@ -1,29 +1,26 @@
 
 import React, { useState, useEffect } from 'react';
-import { 
-  TrendingUp, 
-  AlertCircle, 
-  CheckCircle2, 
-  Package, 
+import {
+  TrendingUp,
+  AlertCircle,
+  CheckCircle2,
+  Package,
   ArrowUpRight,
   MoreHorizontal,
   Zap,
   Leaf,
   Sparkles,
-  Volume2,
   ChevronRight,
   Lightbulb,
-  MessageSquareQuote,
-  Loader2,
-  PlayCircle
+  Loader2
 } from 'lucide-react';
-import { 
-  AreaChart, 
-  Area, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
   ResponsiveContainer
 } from 'recharts';
 import { useTranslation } from 'react-i18next';
@@ -35,8 +32,6 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
   const { t, i18n } = useTranslation();
   const [insights, setInsights] = useState<BusinessInsight[]>([]);
   const [isLoadingInsights, setIsLoadingInsights] = useState(false);
-  const [isStoryMode, setIsStoryMode] = useState(false);
-  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
 
   useEffect(() => {
     if (bills.length > 0) {
@@ -53,20 +48,6 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
       console.error(e);
     } finally {
       setIsLoadingInsights(false);
-    }
-  };
-
-  const handleStoryNarrate = async () => {
-    if (!insights.length) return;
-    setIsPlayingAudio(true);
-    try {
-      const storyText = insights.map(i => `${i.title}. ${i.content}`).join(' ');
-      const utterance = new SpeechSynthesisUtterance(storyText);
-      utterance.rate = 0.95;
-      window.speechSynthesis.speak(utterance);
-      utterance.onend = () => setIsPlayingAudio(false);
-    } catch (e) {
-      setIsPlayingAudio(false);
     }
   };
 
@@ -120,18 +101,7 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
           <p className="text-slate-500 dark:text-white/50 mt-1.5 text-lg">{t('dashboard.subtitle')}</p>
         </div>
         <div className="flex gap-4">
-          <button 
-            onClick={() => setIsStoryMode(!isStoryMode)}
-            className={`tap-effect flex items-center gap-2.5 px-7 py-4 rounded-[24px] font-bold transition-all duration-500 border ${
-              isStoryMode 
-              ? 'bg-indigo-600 text-white border-indigo-400/30 shadow-lg shadow-indigo-500/30' 
-              : 'bg-slate-100 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-600 dark:text-white/70 hover:bg-slate-200 dark:hover:bg-white/10'
-            }`}
-          >
-            <MessageSquareQuote size={20} />
-            {t('dashboard.voiceAgent')}
-          </button>
-          <button 
+          <button
             onClick={() => onNavigate(Page.Process)}
             className="gem-button flex items-center gap-2.5 px-7 py-4"
           >
@@ -183,14 +153,14 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
                 ]}>
                   <defs>
                     <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.4}/>
-                      <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                      <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.4} />
+                      <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(100,116,139,0.2)" />
-                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: 'rgba(100,116,139,0.8)', fontSize: 12}} />
-                  <YAxis axisLine={false} tickLine={false} tick={{fill: 'rgba(100,116,139,0.8)', fontSize: 12}} />
-                  <Tooltip 
+                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'rgba(100,116,139,0.8)', fontSize: 12 }} />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fill: 'rgba(100,116,139,0.8)', fontSize: 12 }} />
+                  <Tooltip
                     contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.95)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', backdropFilter: 'blur(16px)' }}
                     itemStyle={{ color: '#3b82f6' }}
                     formatter={(val) => `₹${val}`}
@@ -211,14 +181,13 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
               </div>
               {isLoadingInsights && <Loader2 size={20} className="animate-spin text-slate-400 dark:text-white/30" />}
             </div>
-            
+
             <div className="flex-1 space-y-6">
               {insights.map((insight, idx) => (
                 <div key={idx} className="tap-effect p-5 rounded-[24px] bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 cursor-pointer group">
                   <div className="flex items-center justify-between mb-2">
-                    <span className={`px-2 py-0.5 rounded-lg text-[10px] font-bold tracking-widest ${
-                      insight.type === 'TREND' ? 'text-blue-500 dark:text-blue-400' : 'text-emerald-500 dark:text-emerald-400'
-                    }`}>
+                    <span className={`px-2 py-0.5 rounded-lg text-[10px] font-bold tracking-widest ${insight.type === 'TREND' ? 'text-blue-500 dark:text-blue-400' : 'text-emerald-500 dark:text-emerald-400'
+                      }`}>
                       {insight.type}
                     </span>
                     <ChevronRight size={16} className="text-slate-300 dark:text-white/20 group-hover:text-slate-500 dark:group-hover:text-white/50" />
