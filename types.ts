@@ -20,6 +20,7 @@ export interface Bill {
   grandTotal?: number;
   overallConfidence?: number;
   recommendedStatus?: 'PENDING' | 'VERIFIED' | 'FLAGGED';
+  status?: 'PENDING' | 'VERIFIED' | 'FLAGGED';
 }
 
 export interface BillItem {
