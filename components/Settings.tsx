@@ -416,25 +416,25 @@ const Settings: React.FC = () => {
                       onClick={() => handleThemeChange('dark')}
                       className={`p-6 rounded-2xl border-2 transition-all ${
                         theme === 'dark'
-                          ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20'
-                          : 'border-slate-200 dark:border-white/10 hover:border-blue-400'
+                          ? 'border-blue-600 bg-blue-100 dark:bg-blue-900/20'
+                          : 'border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-transparent hover:border-blue-400'
                       }`}
                     >
-                      <Moon size={32} className="mx-auto mb-3 text-slate-900 dark:text-white" />
-                      <p className="font-medium text-slate-900 dark:text-white">Dark Mode</p>
-                      <p className="text-sm text-slate-600 dark:text-white/60 mt-1">Easy on the eyes</p>
+                      <Moon size={32} className="mx-auto mb-3 text-slate-700 dark:text-white" />
+                      <p className="font-medium text-slate-800 dark:text-white">Dark Mode</p>
+                      <p className="text-sm text-slate-500 dark:text-white/60 mt-1">Easy on the eyes</p>
                     </button>
                     <button
                       onClick={() => handleThemeChange('light')}
                       className={`p-6 rounded-2xl border-2 transition-all ${
                         theme === 'light'
-                          ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20'
-                          : 'border-slate-200 dark:border-white/10 hover:border-blue-400'
+                          ? 'border-blue-600 bg-blue-100 dark:bg-blue-900/20'
+                          : 'border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-transparent hover:border-blue-400'
                       }`}
                     >
-                      <Sun size={32} className="mx-auto mb-3 text-slate-900 dark:text-white" />
-                      <p className="font-medium text-slate-900 dark:text-white">Light Mode</p>
-                      <p className="text-sm text-slate-600 dark:text-white/60 mt-1">Bright and clear</p>
+                      <Sun size={32} className="mx-auto mb-3 text-slate-700 dark:text-white" />
+                      <p className="font-medium text-slate-800 dark:text-white">Light Mode</p>
+                      <p className="text-sm text-slate-500 dark:text-white/60 mt-1">Bright and clear</p>
                     </button>
                   </div>
                 </div>

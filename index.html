@@ -38,12 +38,28 @@
       --foreground: 210 40% 98%;
     }
 
+    html.light {
+      --background: 210 40% 98%;
+      --foreground: 222 47% 4%;
+    }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #020617;
-      color: rgba(255, 255, 255, 0.9);
       min-height: 100vh;
       overflow-x: hidden;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+
+    html.dark body,
+    body.dark {
+      background-color: #020617 !important;
+      color: rgba(255, 255, 255, 0.9) !important;
+    }
+
+    html.light body,
+    body.light {
+      background-color: #f1f5f9 !important;
+      color: #0f172a !important;
     }
 
     .mesh-bg {
@@ -53,21 +69,48 @@
       right: 0;
       bottom: 0;
       z-index: -1;
+      transition: opacity 0.3s ease;
+    }
+
+    html.dark .mesh-bg,
+    body.dark .mesh-bg {
       background: radial-gradient(circle at 20% 20%, #1e1b4b 0%, transparent 40%),
         radial-gradient(circle at 80% 10%, #1e3a8a 0%, transparent 40%),
         radial-gradient(circle at 50% 90%, #111827 0%, transparent 40%),
         radial-gradient(circle at 10% 80%, #0f172a 0%, transparent 40%);
+      opacity: 1;
+    }
+
+    html.light .mesh-bg,
+    body.light .mesh-bg {
+      background: radial-gradient(circle at 20% 20%, #c7d2fe 0%, transparent 50%),
+        radial-gradient(circle at 80% 10%, #bfdbfe 0%, transparent 50%),
+        radial-gradient(circle at 50% 90%, #e0e7ff 0%, transparent 50%),
+        radial-gradient(circle at 10% 80%, #dbeafe 0%, transparent 50%);
+      opacity: 0.5;
     }
 
     .glass-card {
       position: relative;
       overflow: hidden;
       border-radius: 32px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.03);
       backdrop-filter: blur(28px) saturate(190%);
       -webkit-backdrop-filter: blur(28px) saturate(190%);
+      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    html.dark .glass-card,
+    body.dark .glass-card {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
       box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    html.light .glass-card,
+    body.light .glass-card {
+      border: 1px solid #cbd5e1;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
     }
 
     .tap-effect {
@@ -112,18 +155,94 @@
       z-index: 50;
       margin: 0 1.5rem;
       border-radius: 3rem;
-      background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(40px) saturate(210%);
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    html.dark .nav-glass,
+    body.dark .nav-glass {
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    html.light .nav-glass,
+    body.light .nav-glass {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
     }
 
     ::-webkit-scrollbar {
       width: 6px;
     }
 
-    ::-webkit-scrollbar-thumb {
+    html.dark ::-webkit-scrollbar-thumb {
       background: rgba(255, 255, 255, 0.1);
       border-radius: 10px;
+    }
+
+    html.light ::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+    }
+
+    /* Light mode - hide decorative blobs */
+    html.light .bg-blue-600\/10,
+    html.light .bg-indigo-600\/15,
+    body.light .bg-blue-600\/10,
+    body.light .bg-indigo-600\/15 {
+      opacity: 0 !important;
+    }
+
+    /* Light mode text overrides */
+    body.light .text-white\/90,
+    html.light .text-white\/90 {
+      color: #1e293b !important;
+    }
+
+    body.light .text-white\/50,
+    html.light .text-white\/50 {
+      color: #64748b !important;
+    }
+
+    body.light .text-white\/40,
+    html.light .text-white\/40 {
+      color: #94a3b8 !important;
+    }
+
+    body.light .text-white\/30,
+    html.light .text-white\/30 {
+      color: #94a3b8 !important;
+    }
+
+    body.light .text-white,
+    html.light .text-white {
+      color: #0f172a !important;
+    }
+
+    /* Text selection styles */
+    html.dark ::selection,
+    body.dark ::selection {
+      background-color: #3b82f6;
+      color: #ffffff;
+    }
+
+    html.light ::selection,
+    body.light ::selection {
+      background-color: #3b82f6;
+      color: #ffffff;
+    }
+
+    html.dark ::-moz-selection,
+    body.dark ::-moz-selection {
+      background-color: #3b82f6;
+      color: #ffffff;
+    }
+
+    html.light ::-moz-selection,
+    body.light ::-moz-selection {
+      background-color: #3b82f6;
+      color: #ffffff;
     }
   </style>
   <script type="importmap">

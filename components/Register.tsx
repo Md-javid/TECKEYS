@@ -82,105 +82,105 @@ export const Register: React.FC<RegisterProps> = ({ onRegisterSuccess, onSwitchT
             <div className="w-full max-w-xl animate-fade-in-up">
                 <button
                     onClick={step === 1 ? onBack : () => setStep(1)}
-                    className="mb-6 flex items-center gap-2 text-white/60 hover:text-white transition-colors group"
+                    className="mb-6 flex items-center gap-2 text-slate-500 dark:text-white/60 hover:text-slate-700 dark:hover:text-white transition-colors group"
                 >
                     <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
                     {step === 1 ? 'Back to Home' : 'Back to Personal Info'}
                 </button>
 
-                <div className="glass-card p-8 md:p-10 backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl shadow-2xl">
+                <div className="glass-card p-8 md:p-10 backdrop-blur-xl bg-white/80 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-3xl shadow-2xl">
                     <div className="text-center mb-8">
-                        <h1 className="text-3xl font-bold text-white mb-2">Create Account</h1>
-                        <p className="text-white/50">Join BillAgent Pro in seconds</p>
+                        <h1 className="text-3xl font-bold text-slate-800 dark:text-white mb-2">Create Account</h1>
+                        <p className="text-slate-500 dark:text-white/50">Join BillAgent Pro in seconds</p>
 
                         <div className="flex items-center justify-center gap-2 mt-6">
-                            <div className={`h-2 w-16 rounded-full transition-all duration-300 ${step === 1 ? 'bg-blue-500' : 'bg-white/20'}`} />
-                            <div className={`h-2 w-16 rounded-full transition-all duration-300 ${step === 2 ? 'bg-blue-500' : 'bg-white/20'}`} />
+                            <div className={`h-2 w-16 rounded-full transition-all duration-300 ${step === 1 ? 'bg-blue-500' : 'bg-slate-300 dark:bg-white/20'}`} />
+                            <div className={`h-2 w-16 rounded-full transition-all duration-300 ${step === 2 ? 'bg-blue-500' : 'bg-slate-300 dark:bg-white/20'}`} />
                         </div>
                     </div>
 
                     {error && (
-                        <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 mb-6 flex items-start gap-3 animate-shake">
-                            <AlertCircle className="text-red-400 shrink-0 mt-0.5" size={18} />
-                            <p className="text-sm text-red-200">{error}</p>
+                        <div className="bg-red-100 dark:bg-red-500/10 border border-red-300 dark:border-red-500/20 rounded-xl p-4 mb-6 flex items-start gap-3 animate-shake">
+                            <AlertCircle className="text-red-500 dark:text-red-400 shrink-0 mt-0.5" size={18} />
+                            <p className="text-sm text-red-600 dark:text-red-200">{error}</p>
                         </div>
                     )}
 
                     <form onSubmit={handleNextStep} className="space-y-4">
                         {step === 1 ? (
                             <div className="space-y-4 animate-fade-in">
-                                <div className="flex item-center mb-2 gap-2 text-blue-400 text-sm font-semibold uppercase tracking-wider">
+                                <div className="flex item-center mb-2 gap-2 text-blue-500 dark:text-blue-400 text-sm font-semibold uppercase tracking-wider">
                                     <User size={16} /> Personal Information
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-white/80 mb-1.5 ml-1">First Name</label>
+                                        <label className="block text-sm font-medium text-slate-700 dark:text-white/80 mb-1.5 ml-1">First Name</label>
                                         <input
                                             type="text"
                                             value={formData.first_name}
                                             onChange={(e) => setFormData(prev => ({ ...prev, first_name: e.target.value }))}
                                             required
-                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                            className="w-full px-4 py-3 bg-slate-100 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                                             placeholder="John"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-white/80 mb-1.5 ml-1">Last Name</label>
+                                        <label className="block text-sm font-medium text-slate-700 dark:text-white/80 mb-1.5 ml-1">Last Name</label>
                                         <input
                                             type="text"
                                             value={formData.last_name}
                                             onChange={(e) => setFormData(prev => ({ ...prev, last_name: e.target.value }))}
                                             required
-                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                            className="w-full px-4 py-3 bg-slate-100 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                                             placeholder="Doe"
                                         />
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-white/80 mb-1.5 ml-1">Username</label>
+                                    <label className="block text-sm font-medium text-slate-700 dark:text-white/80 mb-1.5 ml-1">Username</label>
                                     <input
                                         type="text"
                                         value={formData.username}
                                         onChange={(e) => setFormData(prev => ({ ...prev, username: e.target.value }))}
                                         required
-                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                        className="w-full px-4 py-3 bg-slate-100 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                                         placeholder="johndoe"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-white/80 mb-1.5 ml-1">Email</label>
+                                    <label className="block text-sm font-medium text-slate-700 dark:text-white/80 mb-1.5 ml-1">Email</label>
                                     <input
                                         type="email"
                                         value={formData.email}
                                         onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                                         required
-                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                        className="w-full px-4 py-3 bg-slate-100 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                                         placeholder="john@example.com"
                                     />
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-white/80 mb-1.5 ml-1">Password</label>
+                                        <label className="block text-sm font-medium text-slate-700 dark:text-white/80 mb-1.5 ml-1">Password</label>
                                         <input
                                             type="password"
                                             value={formData.password}
                                             onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
                                             required
-                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                            className="w-full px-4 py-3 bg-slate-100 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                                             placeholder="••••••••"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-white/80 mb-1.5 ml-1">Confirm</label>
+                                        <label className="block text-sm font-medium text-slate-700 dark:text-white/80 mb-1.5 ml-1">Confirm</label>
                                         <input
                                             type="password"
                                             value={formData.password2}
                                             onChange={(e) => setFormData(prev => ({ ...prev, password2: e.target.value }))}
                                             required
-                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                            className="w-full px-4 py-3 bg-slate-100 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                                             placeholder="••••••••"
                                         />
                                     </div>
@@ -188,28 +188,28 @@ export const Register: React.FC<RegisterProps> = ({ onRegisterSuccess, onSwitchT
                             </div>
                         ) : (
                             <div className="space-y-4 animate-fade-in">
-                                <div className="flex item-center mb-2 gap-2 text-blue-400 text-sm font-semibold uppercase tracking-wider">
+                                <div className="flex item-center mb-2 gap-2 text-blue-500 dark:text-blue-400 text-sm font-semibold uppercase tracking-wider">
                                     <Building2 size={16} /> Store Details
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-white/80 mb-1.5 ml-1">Store Name</label>
+                                    <label className="block text-sm font-medium text-slate-700 dark:text-white/80 mb-1.5 ml-1">Store Name</label>
                                     <input
                                         type="text"
                                         value={formData.store_name}
                                         onChange={(e) => setFormData(prev => ({ ...prev, store_name: e.target.value }))}
                                         required
-                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                        className="w-full px-4 py-3 bg-slate-100 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                                         placeholder="My Awesome Store"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-white/80 mb-1.5 ml-1">Store Type</label>
+                                    <label className="block text-sm font-medium text-slate-700 dark:text-white/80 mb-1.5 ml-1">Store Type</label>
                                     <select
                                         value={formData.store_type}
                                         onChange={(e) => setFormData(prev => ({ ...prev, store_type: e.target.value }))}
                                         required
-                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all [&>option]:text-black"
+                                        className="w-full px-4 py-3 bg-slate-100 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                                     >
                                         <option value="retail">Retail Store</option>
                                         <option value="restaurant">Restaurant</option>
@@ -222,22 +222,22 @@ export const Register: React.FC<RegisterProps> = ({ onRegisterSuccess, onSwitchT
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-white/80 mb-1.5 ml-1">Phone</label>
+                                    <label className="block text-sm font-medium text-slate-700 dark:text-white/80 mb-1.5 ml-1">Phone</label>
                                     <input
                                         type="tel"
                                         value={formData.phone}
                                         onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                        className="w-full px-4 py-3 bg-slate-100 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                                         placeholder="+1 (555) 000-0000"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-white/80 mb-1.5 ml-1">Address</label>
+                                    <label className="block text-sm font-medium text-slate-700 dark:text-white/80 mb-1.5 ml-1">Address</label>
                                     <textarea
                                         value={formData.address}
                                         onChange={(e) => setFormData(prev => ({ ...prev, address: e.target.value }))}
-                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all min-h-[80px]"
+                                        className="w-full px-4 py-3 bg-slate-100 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all min-h-[80px]"
                                         placeholder="Store address..."
                                     />
                                 </div>
@@ -254,11 +254,11 @@ export const Register: React.FC<RegisterProps> = ({ onRegisterSuccess, onSwitchT
                     </form>
 
                     <div className="mt-8 text-center">
-                        <p className="text-white/40 text-sm">
+                        <p className="text-slate-500 dark:text-white/40 text-sm">
                             Already have an account?{' '}
                             <button
                                 onClick={onSwitchToLogin}
-                                className="text-blue-400 hover:text-blue-300 font-medium transition-colors hover:underline underline-offset-4"
+                                className="text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 font-medium transition-colors hover:underline underline-offset-4"
                             >
                                 Sign In
                             </button>

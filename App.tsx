@@ -44,13 +44,21 @@ const App: React.FC = () => {
   }, []);
 
   const applyTheme = (newTheme: 'dark' | 'light') => {
+    // Update html element
     document.documentElement.className = newTheme;
+    // Update body element
+    document.body.className = newTheme;
+    
     if (newTheme === 'light') {
       document.documentElement.classList.add('light');
       document.documentElement.classList.remove('dark');
+      document.body.classList.add('light');
+      document.body.classList.remove('dark');
     } else {
       document.documentElement.classList.add('dark');
       document.documentElement.classList.remove('light');
+      document.body.classList.add('dark');
+      document.body.classList.remove('light');
     }
   };
 
@@ -212,10 +220,10 @@ const App: React.FC = () => {
 
               {/* Notifications Dropdown */}
               {showNotifications && (
-                <div className="absolute right-0 mt-2 w-80 glass-card rounded-2xl p-4 shadow-xl z-500 animate-fade-in">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-slate-900 dark:text-white">Notifications</h3>
-                    <span className="text-xs bg-blue-600 text-white px-2 py-1 rounded-full">
+                <div className="absolute right-0 mt-2 w-80 rounded-2xl p-4 shadow-2xl z-50 animate-fade-in bg-white dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200 dark:border-white/10">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-bold text-slate-800 dark:text-white">Notifications</h3>
+                    <span className="text-xs bg-blue-500/20 text-blue-600 dark:text-blue-400 px-2.5 py-1 rounded-full border border-blue-500/30">
                       {notifications.filter(n => n.unread).length} new
                     </span>
                   </div>
@@ -224,16 +232,16 @@ const App: React.FC = () => {
                       <div
                         key={notif.id}
                         className={`p-3 rounded-xl transition-all ${notif.unread
-                          ? 'bg-blue-500 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-8000'
-                          : 'bg-slate-500 dark:bg-white/5'
+                          ? 'bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20'
+                          : 'bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5'
                           }`}
                       >
-                        <p className="text-sm text-slate-900 dark:text-white">{notif.text}</p>
+                        <p className="text-sm text-slate-800 dark:text-white/90">{notif.text}</p>
                         <p className="text-xs text-slate-500 dark:text-white/40 mt-1">{notif.time}</p>
                       </div>
                     ))}
                   </div>
-                  <button className="w-full mt-3 text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                  <button className="w-full mt-4 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
                     View all notifications
                   </button>
                 </div>
@@ -272,12 +280,12 @@ const App: React.FC = () => {
 
             {/* Profile Dropdown */}
             {showProfileMenu && (
-              <div className="absolute right-0 mt-2 w-64 glass-card rounded-2xl p-3 shadow-xl z-50 animate-fade-in">
+              <div className="absolute right-0 mt-2 w-64 rounded-2xl p-3 shadow-2xl z-50 animate-fade-in bg-white dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200 dark:border-white/10">
                 <div className="p-3 border-b border-slate-200 dark:border-white/10">
-                  <p className="font-semibold text-slate-900 dark:text-white">
+                  <p className="font-bold text-slate-800 dark:text-white">
                     {currentUser?.first_name} {currentUser?.last_name}
                   </p>
-                  <p className="text-sm text-slate-600 dark:text-white/60">{currentUser?.email}</p>
+                  <p className="text-sm text-slate-500 dark:text-white/50">{currentUser?.email}</p>
                 </div>
                 <div className="py-2">
                   <button
@@ -285,7 +293,7 @@ const App: React.FC = () => {
                       setCurrentPage(Page.Settings);
                       setShowProfileMenu(false);
                     }}
-                    className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-slate-700 dark:text-white/80 hover:bg-slate-100 dark:hover:bg-white/10 transition-all"
+                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-700 dark:text-white/80 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-all"
                   >
                     <User size={18} />
                     <span>Profile Settings</span>
@@ -295,7 +303,7 @@ const App: React.FC = () => {
                       setCurrentPage(Page.Settings);
                       setShowProfileMenu(false);
                     }}
-                    className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-slate-700 dark:text-white/80 hover:bg-slate-100 dark:hover:bg-white/10 transition-all"
+                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-700 dark:text-white/80 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-all"
                   >
                     <SettingsIcon size={18} />
                     <span>Settings</span>
@@ -303,7 +311,7 @@ const App: React.FC = () => {
                   <div className="h-px bg-slate-200 dark:bg-white/10 my-2" />
                   <button
                     onClick={handleLogout}
-                    className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 hover:text-red-700 dark:hover:text-red-300 transition-all"
                   >
                     <LogOut size={18} />
                     <span>Logout</span>

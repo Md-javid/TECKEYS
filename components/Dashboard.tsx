@@ -70,20 +70,40 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
 
   const grandTotalSales = bills.reduce((acc, b) => acc + b.grandTotal, 0);
 
+  // Calculate vendor stats
+  const vendorStats = bills.reduce((acc, bill) => {
+    const vendor = bill.vendorName || 'Unknown';
+    if (!acc[vendor]) {
+      acc[vendor] = { total: 0, count: 0 };
+    }
+    acc[vendor].total += bill.grandTotal;
+    acc[vendor].count += 1;
+    return acc;
+  }, {} as Record<string, { total: number; count: number }>);
+
+  const vendorEntries = Object.entries(vendorStats).map(([name, stats]) => ({
+    name,
+    total: stats.total,
+    count: stats.count
+  }));
+
+  const highestSaleVendor = vendorEntries.sort((a, b) => b.total - a.total)[0];
+  const lowestSaleVendor = vendorEntries.sort((a, b) => a.total - b.total)[0];
+
   const StatCard = ({ title, value, sub, icon: Icon, color }: any) => (
     <div className="tap-effect glass-card p-7 group hover:scale-[1.02] cursor-pointer">
       <div className="flex justify-between items-start mb-5">
         <div className={`p-4 rounded-[20px] ${color} bg-opacity-20 flex items-center justify-center`}>
           <Icon className={color.replace('bg-', 'text-')} size={26} />
         </div>
-        <button className="text-white/30 hover:text-white transition-colors">
+        <button className="text-slate-400 dark:text-white/30 hover:text-slate-600 dark:hover:text-white transition-colors">
           <MoreHorizontal size={22} />
         </button>
       </div>
-      <h3 className="text-white/50 text-sm font-bold uppercase tracking-wider">{title}</h3>
+      <h3 className="text-slate-500 dark:text-white/50 text-sm font-bold uppercase tracking-wider">{title}</h3>
       <div className="flex items-end gap-3 mt-2">
-        <span className="text-3xl font-bold text-white/90 tracking-tighter">{value}</span>
-        <span className="text-emerald-400 text-sm font-semibold mb-1 flex items-center bg-emerald-500/10 px-2 py-0.5 rounded-full">
+        <span className="text-3xl font-bold text-slate-800 dark:text-white/90 tracking-tighter">{value}</span>
+        <span className="text-emerald-600 dark:text-emerald-400 text-sm font-semibold mb-1 flex items-center bg-emerald-500/10 px-2 py-0.5 rounded-full">
           <ArrowUpRight size={14} className="mr-0.5" /> {sub}
         </span>
       </div>
@@ -94,8 +114,8 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-6 duration-700">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <h1 className="text-4xl font-bold text-white/90 tracking-tight">Business Hub</h1>
-          <p className="text-white/50 mt-1.5 text-lg">Neural retail intelligence (INR)</p>
+          <h1 className="text-4xl font-bold text-slate-800 dark:text-white/90 tracking-tight">Business Hub</h1>
+          <p className="text-slate-500 dark:text-white/50 mt-1.5 text-lg">Neural retail intelligence (INR)</p>
         </div>
         <div className="flex gap-4">
           <button 
@@ -103,7 +123,7 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
             className={`tap-effect flex items-center gap-2.5 px-7 py-4 rounded-[24px] font-bold transition-all duration-500 border ${
               isStoryMode 
               ? 'bg-indigo-600 text-white border-indigo-400/30 shadow-lg shadow-indigo-500/30' 
-              : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10'
+              : 'bg-slate-100 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-600 dark:text-white/70 hover:bg-slate-200 dark:hover:bg-white/10'
             }`}
           >
             <MessageSquareQuote size={20} />
@@ -122,18 +142,30 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard title="Processed" value={bills.length} sub="+8%" icon={CheckCircle2} color="bg-blue-500" />
         <StatCard title="Sales (INR)" value={`₹${grandTotalSales.toLocaleString('en-IN')}`} sub="+22%" icon={TrendingUp} color="bg-emerald-500" />
-        <StatCard title="Paper Saved" value={`${(bills.length * 0.2).toFixed(1)}kg`} sub="+100%" icon={Leaf} color="bg-teal-500" />
-        <StatCard title="Neural Confidence" value="97.4%" sub="+2%" icon={Zap} color="bg-amber-500" />
+        <StatCard 
+          title="Highest Sold" 
+          value={highestSaleVendor ? highestSaleVendor.name.substring(0, 10) + (highestSaleVendor.name.length > 10 ? '...' : '') : 'N/A'} 
+          sub={highestSaleVendor ? `₹${highestSaleVendor.total.toLocaleString('en-IN')}` : '₹0'} 
+          icon={TrendingUp} 
+          color="bg-purple-500" 
+        />
+        <StatCard 
+          title="Lowest Sold" 
+          value={lowestSaleVendor ? lowestSaleVendor.name.substring(0, 10) + (lowestSaleVendor.name.length > 10 ? '...' : '') : 'N/A'} 
+          sub={lowestSaleVendor ? `₹${lowestSaleVendor.total.toLocaleString('en-IN')}` : '₹0'} 
+          icon={AlertCircle} 
+          color="bg-orange-500" 
+        />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
           <div className="glass-card p-9">
             <div className="flex items-center justify-between mb-10">
-              <h2 className="text-2xl font-bold text-white/90 tracking-tight">Revenue Dynamics</h2>
-              <div className="p-1.5 bg-white/5 rounded-2xl flex gap-1.5 border border-white/10">
-                <button className="tap-effect px-5 py-2 rounded-xl text-xs font-bold bg-white/10 shadow-lg text-white">LIVE</button>
-                <button className="tap-effect px-5 py-2 rounded-xl text-xs font-bold text-white/40 hover:text-white/70">7D</button>
+              <h2 className="text-2xl font-bold text-slate-800 dark:text-white/90 tracking-tight">Revenue Dynamics</h2>
+              <div className="p-1.5 bg-slate-100 dark:bg-white/5 rounded-2xl flex gap-1.5 border border-slate-200 dark:border-white/10">
+                <button className="tap-effect px-5 py-2 rounded-xl text-xs font-bold bg-blue-500 shadow-lg text-white">LIVE</button>
+                <button className="tap-effect px-5 py-2 rounded-xl text-xs font-bold text-slate-400 dark:text-white/40 hover:text-slate-600 dark:hover:text-white/70">7D</button>
               </div>
             </div>
             <div className="h-[340px]">
@@ -149,9 +181,9 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
                       <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.05)" />
-                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: 'rgba(255,255,255,0.4)', fontSize: 12}} />
-                  <YAxis axisLine={false} tickLine={false} tick={{fill: 'rgba(255,255,255,0.4)', fontSize: 12}} />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(100,116,139,0.2)" />
+                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: 'rgba(100,116,139,0.8)', fontSize: 12}} />
+                  <YAxis axisLine={false} tickLine={false} tick={{fill: 'rgba(100,116,139,0.8)', fontSize: 12}} />
                   <Tooltip 
                     contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.95)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', backdropFilter: 'blur(16px)' }}
                     itemStyle={{ color: '#3b82f6' }}
@@ -169,43 +201,26 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-3">
                 <Sparkles className="text-amber-400" size={26} />
-                <h2 className="text-2xl font-bold text-white/90 tracking-tight">AI Insights</h2>
+                <h2 className="text-2xl font-bold text-slate-800 dark:text-white/90 tracking-tight">AI Insights</h2>
               </div>
-              {isLoadingInsights && <Loader2 size={20} className="animate-spin text-white/30" />}
+              {isLoadingInsights && <Loader2 size={20} className="animate-spin text-slate-400 dark:text-white/30" />}
             </div>
             
             <div className="flex-1 space-y-6">
               {insights.map((insight, idx) => (
-                <div key={idx} className="tap-effect p-5 rounded-[24px] bg-white/5 border border-white/10 hover:border-white/20 cursor-pointer group">
+                <div key={idx} className="tap-effect p-5 rounded-[24px] bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 cursor-pointer group">
                   <div className="flex items-center justify-between mb-2">
                     <span className={`px-2 py-0.5 rounded-lg text-[10px] font-bold tracking-widest ${
-                      insight.type === 'TREND' ? 'text-blue-400' : 'text-emerald-400'
+                      insight.type === 'TREND' ? 'text-blue-500 dark:text-blue-400' : 'text-emerald-500 dark:text-emerald-400'
                     }`}>
                       {insight.type}
                     </span>
-                    <ChevronRight size={16} className="text-white/20 group-hover:text-white/50" />
+                    <ChevronRight size={16} className="text-slate-300 dark:text-white/20 group-hover:text-slate-500 dark:group-hover:text-white/50" />
                   </div>
-                  <h3 className="text-sm font-bold text-white/90 mb-1">{insight.title}</h3>
-                  <p className="text-xs text-white/40 leading-relaxed">{insight.content}</p>
+                  <h3 className="text-sm font-bold text-slate-800 dark:text-white/90 mb-1">{insight.title}</h3>
+                  <p className="text-xs text-slate-500 dark:text-white/40 leading-relaxed">{insight.content}</p>
                 </div>
               ))}
-            </div>
-          </div>
-
-          <div className="glass-card p-9 bg-teal-500/5 border-teal-500/20">
-            <div className="flex items-center gap-3 mb-6">
-              <Leaf className="text-teal-400" size={24} />
-              <h2 className="text-lg font-bold text-white">Sustainability Agent</h2>
-            </div>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <span className="text-white/40 text-sm">CO2 Avoided</span>
-                <span className="text-teal-400 font-bold">~{(bills.length * 1.4).toFixed(1)}kg</span>
-              </div>
-              <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-                <div className="h-full bg-teal-500 w-[65%]" />
-              </div>
-              <p className="text-xs text-white/30 italic">"By digitizing these bills, you've saved the equivalent of 3 mature banyan tree seedlings."</p>
             </div>
           </div>
         </div>

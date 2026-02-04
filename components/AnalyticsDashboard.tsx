@@ -4,7 +4,7 @@ import {
     LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, AreaChart, Area,
     XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis
 } from 'recharts';
-import { TrendingUp, TrendingDown, DollarSign, FileText, Calendar, ShoppingBag, Percent, Activity } from 'lucide-react';
+import { TrendingUp, TrendingDown, DollarSign, FileText, Calendar, ShoppingBag, Percent, Activity, AlertCircle, RefreshCw } from 'lucide-react';
 
 const COLORS = ['#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#06b6d4', '#8b5cf6'];
 
@@ -13,12 +13,15 @@ export const AnalyticsDashboard: React.FC = () => {
     const [weeklyData, setWeeklyData] = useState<any>(null);
     const [monthlyData, setMonthlyData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         loadAnalytics();
     }, []);
 
     const loadAnalytics = async () => {
+        setLoading(true);
+        setError(null);
         try {
             const [dashboard, weekly, monthly] = await Promise.all([
                 analyticsAPI.getDashboard(),
@@ -29,8 +32,9 @@ export const AnalyticsDashboard: React.FC = () => {
             setDashboardData(dashboard.data);
             setWeeklyData(weekly.data);
             setMonthlyData(monthly.data);
-        } catch (error) {
+        } catch (error: any) {
             console.error('Failed to load analytics:', error);
+            setError(error?.response?.data?.detail || error?.message || 'Failed to load analytics data. Please try again.');
         } finally {
             setLoading(false);
         }
@@ -42,6 +46,24 @@ export const AnalyticsDashboard: React.FC = () => {
                 <div className="text-center">
                     <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                     <p className="text-slate-600 dark:text-white/60">Loading analytics...</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="flex items-center justify-center h-96">
+                <div className="text-center glass-card p-8 rounded-2xl max-w-md">
+                    <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+                    <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-2">Failed to Load Analytics</h2>
+                    <p className="text-slate-600 dark:text-white/60 mb-6">{error}</p>
+                    <button 
+                        onClick={loadAnalytics}
+                        className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium flex items-center gap-2 mx-auto transition-all"
+                    >
+                        <RefreshCw size={18} /> Try Again
+                    </button>
                 </div>
             </div>
         );
@@ -103,7 +125,7 @@ export const AnalyticsDashboard: React.FC = () => {
                     </div>
                     <p className="text-sm text-slate-600 dark:text-white/60 mb-1">Total Revenue</p>
                     <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
-                        ${dashboardData?.current_month?.total_amount?.toFixed(2) || '0.00'}
+                        ₹{Number(dashboardData?.current_month?.total_amount || 0).toFixed(2)}
                     </h3>
                     <p className="text-xs text-slate-500 dark:text-white/40 mt-2">This month</p>
                 </div>
@@ -129,7 +151,7 @@ export const AnalyticsDashboard: React.FC = () => {
                     </div>
                     <p className="text-sm text-slate-600 dark:text-white/60 mb-1">Last 7 Days</p>
                     <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
-                        ${dashboardData?.last_7_days?.total_amount?.toFixed(2) || '0.00'}
+                        ₹{Number(dashboardData?.last_7_days?.total_amount || 0).toFixed(2)}
                     </h3>
                     <p className="text-xs text-slate-500 dark:text-white/40 mt-2">
                         {dashboardData?.last_7_days?.total_bills || 0} bills
@@ -144,7 +166,7 @@ export const AnalyticsDashboard: React.FC = () => {
                     </div>
                     <p className="text-sm text-slate-600 dark:text-white/60 mb-1">Average Bill</p>
                     <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
-                        ${monthlyData?.average_bill_amount?.toFixed(2) || '0.00'}
+                        ₹{Number(monthlyData?.average_bill_amount || 0).toFixed(2)}
                     </h3>
                     <p className="text-xs text-slate-500 dark:text-white/40 mt-2">This month</p>
                 </div>
@@ -306,15 +328,15 @@ export const AnalyticsDashboard: React.FC = () => {
                         </div>
                         <div className="p-4 rounded-xl bg-gradient-to-br from-pink-500/10 to-rose-600/10 border border-pink-500/20">
                             <p className="text-sm text-slate-600 dark:text-white/60 mb-1">Total Amount</p>
-                            <p className="text-2xl font-bold text-slate-900 dark:text-white">${weeklyData.total_amount?.toFixed(2)}</p>
+                            <p className="text-2xl font-bold text-slate-900 dark:text-white">₹{Number(weeklyData.total_amount || 0).toFixed(2)}</p>
                         </div>
                         <div className="p-4 rounded-xl bg-gradient-to-br from-cyan-500/10 to-blue-600/10 border border-cyan-500/20">
                             <p className="text-sm text-slate-600 dark:text-white/60 mb-1">Total Tax</p>
-                            <p className="text-2xl font-bold text-slate-900 dark:text-white">${weeklyData.total_tax?.toFixed(2)}</p>
+                            <p className="text-2xl font-bold text-slate-900 dark:text-white">₹{Number(weeklyData.total_tax || 0).toFixed(2)}</p>
                         </div>
                         <div className="p-4 rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-600/10 border border-amber-500/20">
                             <p className="text-sm text-slate-600 dark:text-white/60 mb-1">Average Bill</p>
-                            <p className="text-2xl font-bold text-slate-900 dark:text-white">${weeklyData.average_bill_amount?.toFixed(2)}</p>
+                            <p className="text-2xl font-bold text-slate-900 dark:text-white">₹{Number(weeklyData.average_bill_amount || 0).toFixed(2)}</p>
                         </div>
                     </div>
                 </div>

@@ -4,13 +4,22 @@ import { Bill, BusinessInsight } from "../types";
 
 const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
-if (!apiKey) {
-  console.error('Gemini API key not found. Please add VITE_GEMINI_API_KEY to your .env.local file');
+if (!apiKey || apiKey === 'AIzaSyDemoKey_ReplaceWithYourActualKey') {
+  console.warn('⚠️ Gemini API key not configured. Please add your actual VITE_GEMINI_API_KEY to the .env file');
 }
 
-const ai = new GoogleGenAI({ apiKey: apiKey || '' });
+const ai = apiKey && apiKey !== 'AIzaSyDemoKey_ReplaceWithYourActualKey' 
+  ? new GoogleGenAI({ apiKey }) 
+  : null;
+
+const checkApiKey = () => {
+  if (!ai) {
+    throw new Error('Gemini API key not configured. Please add your API key to the .env file and restart the dev server.');
+  }
+};
 
 export const processBillImage = async (base64Image: string, userContext?: string): Promise<Partial<Bill>> => {
+  checkApiKey();
   const model = "gemini-3-flash-preview";
 
   const systemInstruction = `
@@ -90,6 +99,7 @@ export const processBillImage = async (base64Image: string, userContext?: string
 };
 
 export const generateBusinessInsights = async (bills: Bill[]): Promise<BusinessInsight[]> => {
+  checkApiKey();
   const model = "gemini-3-flash-preview";
   const simplified = bills.map(b => ({ vendor: b.vendorName, total: b.grandTotal, date: b.date }));
 
