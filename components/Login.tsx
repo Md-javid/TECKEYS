@@ -52,43 +52,43 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess, onSwitchToRegister
             <div className="w-full max-w-md animate-fade-in-up">
                 <button
                     onClick={onBack}
-                    className="mb-6 flex items-center gap-2 text-white/60 hover:text-white transition-colors group"
+                    className="mb-6 flex items-center gap-2 text-slate-500 dark:text-white/60 hover:text-slate-700 dark:hover:text-white transition-colors group"
                 >
                     <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
                     Back to Home
                 </button>
 
-                <div className="glass-card p-8 md:p-10 backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl shadow-2xl">
+                <div className="glass-card p-8 md:p-10 backdrop-blur-xl bg-white/80 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-3xl shadow-2xl">
                     <div className="text-center mb-8">
-                        <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
-                        <p className="text-white/50">Enter your credentials to access your workspace</p>
+                        <h1 className="text-3xl font-bold text-slate-800 dark:text-white mb-2">Welcome Back</h1>
+                        <p className="text-slate-500 dark:text-white/50">Enter your credentials to access your workspace</p>
                     </div>
 
                     {error && (
-                        <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 mb-6 flex items-start gap-3 animate-shake">
-                            <AlertCircle className="text-red-400 shrink-0 mt-0.5" size={18} />
-                            <p className="text-sm text-red-200">{error}</p>
+                        <div className="bg-red-100 dark:bg-red-500/10 border border-red-300 dark:border-red-500/20 rounded-xl p-4 mb-6 flex items-start gap-3 animate-shake">
+                            <AlertCircle className="text-red-500 dark:text-red-400 shrink-0 mt-0.5" size={18} />
+                            <p className="text-sm text-red-600 dark:text-red-200">{error}</p>
                         </div>
                     )}
 
                     <form onSubmit={handleSubmit} className="space-y-5">
                         <div>
-                            <label htmlFor="username" className="block text-sm font-medium text-white/80 mb-1.5 ml-1">Username</label>
+                            <label htmlFor="username" className="block text-sm font-medium text-slate-700 dark:text-white/80 mb-1.5 ml-1">Username</label>
                             <input
                                 type="text"
                                 id="username"
                                 value={formData.username}
                                 onChange={(e) => setFormData(prev => ({ ...prev, username: e.target.value }))}
                                 required
-                                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all"
+                                className="w-full px-4 py-3 bg-slate-100 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all"
                                 placeholder="Enter your username"
                             />
                         </div>
 
                         <div>
                             <div className="flex justify-between items-center mb-1.5 ml-1">
-                                <label htmlFor="password" className="block text-sm font-medium text-white/80">Password</label>
-                                <button type="button" className="text-xs text-blue-400 hover:text-blue-300 transition-colors">Forgot password?</button>
+                                <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-white/80">Password</label>
+                                <button type="button" className="text-xs text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors">Forgot password?</button>
                             </div>
                             <input
                                 type="password"
@@ -96,7 +96,7 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess, onSwitchToRegister
                                 value={formData.password}
                                 onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
                                 required
-                                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all"
+                                className="w-full px-4 py-3 bg-slate-100 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all"
                                 placeholder="••••••••"
                             />
                         </div>
@@ -111,11 +111,11 @@ export const Login: React.FC<LoginProps> = ({ onLoginSuccess, onSwitchToRegister
                     </form>
 
                     <div className="mt-8 text-center">
-                        <p className="text-white/40 text-sm">
+                        <p className="text-slate-500 dark:text-white/40 text-sm">
                             Don't have an account?{' '}
                             <button
                                 onClick={onSwitchToRegister}
-                                className="text-blue-400 hover:text-blue-300 font-medium transition-colors hover:underline underline-offset-4"
+                                className="text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 font-medium transition-colors hover:underline underline-offset-4"
                             >
                                 Create Account
                             </button>
