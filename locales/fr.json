@@ -1,0 +1,162 @@
+{
+  "navigation": {
+    "dashboard": "Tableau de Bord",
+    "upload": "Télécharger",
+    "history": "Historique",
+    "analytics": "Analytiques",
+    "settings": "Paramètres",
+    "logout": "Déconnexion"
+  },
+  "dashboard": {
+    "title": "Centre d'Affaires",
+    "subtitle": "Intelligence neurale de détail (INR)",
+    "voiceAgent": "Agent Vocal",
+    "processBatch": "Traiter le Lot",
+    "stats": {
+      "processed": "Traité",
+      "sales": "Ventes (INR)",
+      "paperSaved": "Papier Économisé",
+      "confidence": "Confiance Neurale"
+    },
+    "revenueDynamics": "Dynamique des Revenus",
+    "aiInsights": "Aperçus IA",
+    "sustainabilityAgent": "Agent de Durabilité",
+    "co2Avoided": "CO2 Évité",
+    "sustainabilityMessage": "En numérisant ces factures, vous avez économisé l'équivalent de {{count}} jeunes plants de banian mature.",
+    "days": {
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mer",
+      "thu": "Jeu",
+      "fri": "Ven",
+      "sat": "Sam",
+      "sun": "Dim"
+    }
+  },
+  "billUpload": {
+    "title": "Numériser l'Actif",
+    "subtitle": "Raisonnement Agentique • Gemini 3 • INR (₹)",
+    "agentsActive": "Agents Actifs",
+    "uploadTitle": "Télécharger l'Image de Facture",
+    "uploadSubtitle": "Capturez ou déposez vos reçus ici",
+    "selectFile": "Sélectionner le Fichier",
+    "contextSelection": "Sélection du Contexte",
+    "contextSubtitle": "Aidez l'Agent d'Apprentissage dans la catégorisation",
+    "contextPlaceholder": "ex. Achat en gros de lentilles biologiques pour le magasin principal...",
+    "analyzeButton": "Analyser le Scan Neural",
+    "runningMultiAgent": "Exécution du Scan Multi-Agent",
+    "agentVerdict": "Verdict de l'Agent",
+    "editItems": "Modifier les Éléments Extraits",
+    "itemName": "Nom de l'Article",
+    "quantity": "Qté",
+    "price": "Prix",
+    "total": "Total",
+    "confidence": "Confiance",
+    "grandTotal": "Total Général",
+    "saveToStore": "Enregistrer dans le Magasin Numérique",
+    "discard": "Rejeter",
+    "suggestions": {
+      "inventoryRestock": "Réapprovisionnement d'Inventaire",
+      "utilityBill": "Facture de Services Publics",
+      "officeMaintenance": "Maintenance de Bureau",
+      "bulkRawMaterials": "Matières Premières en Vrac",
+      "techEquipment": "Équipement Technologique"
+    }
+  },
+  "billHistory": {
+    "title": "Archives de Factures",
+    "subtitle": "Grand Livre Neural Immuable",
+    "searchPlaceholder": "Rechercher des factures...",
+    "filterAll": "Toutes",
+    "filterVerified": "Vérifiées",
+    "filterPending": "En Attente",
+    "filterFlagged": "Signalées",
+    "noBills": "Aucune facture trouvée",
+    "noBillsMessage": "Commencez par télécharger votre première facture via l'onglet Télécharger",
+    "viewDetails": "Voir les Détails",
+    "items": "articles",
+    "confidence": "Confiance"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "tabs": {
+      "profile": "Profil",
+      "store": "Magasin",
+      "notifications": "Notifications",
+      "appearance": "Apparence"
+    },
+    "profile": {
+      "title": "Informations de Profil",
+      "firstName": "Prénom",
+      "lastName": "Nom de Famille",
+      "email": "Adresse Email",
+      "editProfile": "Modifier le Profil",
+      "saveChanges": "Enregistrer les Modifications",
+      "cancel": "Annuler"
+    },
+    "store": {
+      "title": "Détails du Magasin",
+      "storeName": "Nom du Magasin",
+      "storeType": "Type de Magasin",
+      "storePhone": "Téléphone du Magasin",
+      "storeAddress": "Adresse du Magasin"
+    },
+    "notifications": {
+      "title": "Préférences de Notification",
+      "emailNotifications": "Notifications par Email",
+      "emailDesc": "Recevoir des mises à jour par email",
+      "pushNotifications": "Notifications Push",
+      "pushDesc": "Notifications du navigateur",
+      "billReminders": "Rappels de Factures",
+      "billDesc": "Me rappeler de traiter les factures en attente",
+      "weeklyReports": "Rapports Hebdomadaires",
+      "weeklyDesc": "Résumé des analyses chaque semaine",
+      "soundEnabled": "Effets Sonores",
+      "soundDesc": "Activer le son pour les notifications"
+    },
+    "appearance": {
+      "title": "Paramètres d'Apparence",
+      "theme": "Thème",
+      "darkMode": "Mode Sombre",
+      "lightMode": "Mode Clair",
+      "language": "Langue",
+      "selectLanguage": "Sélectionnez votre langue préférée"
+    },
+    "messages": {
+      "profileUpdated": "Profil mis à jour avec succès",
+      "storeUpdated": "Détails du magasin mis à jour",
+      "notificationsUpdated": "Paramètres de notification mis à jour",
+      "themeUpdated": "Thème mis à jour avec succès",
+      "languageUpdated": "Langue mise à jour avec succès",
+      "updateFailed": "Échec de la mise à jour des paramètres"
+    }
+  },
+  "auth": {
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "email": "Email",
+    "password": "Mot de Passe",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "loginButton": "Se Connecter",
+    "registerButton": "Créer un Compte",
+    "noAccount": "Pas de compte?",
+    "haveAccount": "Vous avez déjà un compte?",
+    "welcome": "Bon Retour",
+    "getStarted": "Commencer"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "close": "Fermer",
+    "yes": "Oui",
+    "no": "Non",
+    "error": "Erreur",
+    "success": "Succès"
+  }
+}

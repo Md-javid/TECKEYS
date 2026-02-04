@@ -23,11 +23,13 @@ import {
   Tooltip,
   ResponsiveContainer
 } from 'recharts';
+import { useTranslation } from 'react-i18next';
 import { Bill, Page, BusinessInsight } from '../types';
 // Fixed: Removed non-existent export 'generateStorytellingAudio' from the service import
-import { generateBusinessInsights } from '../services/geminiService';
+import { getLocalizedInsights } from '../services/geminiService';
 
 const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> = ({ bills, onNavigate }) => {
+  const { t, i18n } = useTranslation();
   const [insights, setInsights] = useState<BusinessInsight[]>([]);
   const [isLoadingInsights, setIsLoadingInsights] = useState(false);
 
@@ -35,12 +37,12 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
     if (bills.length > 0) {
       loadInsights();
     }
-  }, [bills]);
+  }, [bills, i18n.language]);
 
   const loadInsights = async () => {
     setIsLoadingInsights(true);
     try {
-      const data = await generateBusinessInsights(bills);
+      const data = await getLocalizedInsights(bills, i18n.language);
       setInsights(data);
     } catch (e) {
       console.error(e);
@@ -103,8 +105,8 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-6 duration-700">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <h1 className="text-4xl font-bold text-slate-800 dark:text-white/90 tracking-tight">Business Hub</h1>
-          <p className="text-slate-500 dark:text-white/50 mt-1.5 text-lg">Neural retail intelligence (INR)</p>
+          <h1 className="text-4xl font-bold text-slate-800 dark:text-white/90 tracking-tight">{t('dashboard.title')}</h1>
+          <p className="text-slate-500 dark:text-white/50 mt-1.5 text-lg">{t('dashboard.subtitle')}</p>
         </div>
         <div className="flex gap-4">
           <button
@@ -112,23 +114,23 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
             className="gem-button flex items-center gap-2.5 px-7 py-4"
           >
             <Package size={20} />
-            Process Batch
+            {t('dashboard.processBatch')}
           </button>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard title="Processed" value={bills.length} sub="+8%" icon={CheckCircle2} color="bg-blue-500" />
-        <StatCard title="Sales (INR)" value={`₹${grandTotalSales.toLocaleString('en-IN')}`} sub="+22%" icon={TrendingUp} color="bg-emerald-500" />
+        <StatCard title={t('dashboard.stats.processed')} value={bills.length} sub="+8%" icon={CheckCircle2} color="bg-blue-500" />
+        <StatCard title={t('dashboard.stats.sales')} value={`₹${grandTotalSales.toLocaleString('en-IN')}`} sub="+22%" icon={TrendingUp} color="bg-emerald-500" />
         <StatCard
-          title="Highest Sold"
+          title={t('dashboard.stats.highestSold')}
           value={highestSoldItem ? highestSoldItem.name.substring(0, 12) + (highestSoldItem.name.length > 12 ? '...' : '') : 'N/A'}
           sub={highestSoldItem ? `${highestSoldItem.totalQuantity} units` : '0 units'}
           icon={TrendingUp}
           color="bg-purple-500"
         />
         <StatCard
-          title="Lowest Stock"
+          title={t('dashboard.stats.lowestStock')}
           value={lowestStockItem ? lowestStockItem.name.substring(0, 12) + (lowestStockItem.name.length > 12 ? '...' : '') : 'N/A'}
           sub={lowestStockItem ? `${lowestStockItem.stock} left` : '0 left'}
           icon={Package}
@@ -140,7 +142,7 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
         <div className="lg:col-span-2 space-y-8">
           <div className="glass-card p-9">
             <div className="flex items-center justify-between mb-10">
-              <h2 className="text-2xl font-bold text-slate-800 dark:text-white/90 tracking-tight">Revenue Dynamics</h2>
+              <h2 className="text-2xl font-bold text-slate-800 dark:text-white/90 tracking-tight">{t('dashboard.revenueDynamics')}</h2>
               <div className="p-1.5 bg-slate-100 dark:bg-white/5 rounded-2xl flex gap-1.5 border border-slate-200 dark:border-white/10">
                 <button className="tap-effect px-5 py-2 rounded-xl text-xs font-bold bg-blue-500 shadow-lg text-white">LIVE</button>
                 <button className="tap-effect px-5 py-2 rounded-xl text-xs font-bold text-slate-400 dark:text-white/40 hover:text-slate-600 dark:hover:text-white/70">7D</button>
@@ -149,9 +151,13 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
             <div className="h-[340px]">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={[
-                  { name: 'Mon', sales: 4000 }, { name: 'Tue', sales: 3000 }, { name: 'Wed', sales: 6000 },
-                  { name: 'Thu', sales: 4780 }, { name: 'Fri', sales: 5890 }, { name: 'Sat', sales: 8390 },
-                  { name: 'Sun', sales: 7490 },
+                  { name: t('dashboard.days.mon'), sales: 4000 },
+                  { name: t('dashboard.days.tue'), sales: 3000 },
+                  { name: t('dashboard.days.wed'), sales: 6000 },
+                  { name: t('dashboard.days.thu'), sales: 4780 },
+                  { name: t('dashboard.days.fri'), sales: 5890 },
+                  { name: t('dashboard.days.sat'), sales: 8390 },
+                  { name: t('dashboard.days.sun'), sales: 7490 },
                 ]}>
                   <defs>
                     <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
@@ -179,7 +185,7 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-3">
                 <Sparkles className="text-amber-400" size={26} />
-                <h2 className="text-2xl font-bold text-slate-800 dark:text-white/90 tracking-tight">AI Insights</h2>
+                <h2 className="text-2xl font-bold text-slate-800 dark:text-white/90 tracking-tight">{t('dashboard.aiInsights')}</h2>
               </div>
               {isLoadingInsights && <Loader2 size={20} className="animate-spin text-slate-400 dark:text-white/30" />}
             </div>

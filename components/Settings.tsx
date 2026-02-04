@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { 
   User, Store, Bell, Shield, Palette, Save, AlertCircle, Check, 
-  Mail, Phone, MapPin, Building2, Tag, Edit2, X, Moon, Sun, Volume2, VolumeX
+  Mail, Phone, MapPin, Building2, Tag, Edit2, X, Moon, Sun, Volume2, VolumeX, Languages
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { authAPI } from '../services/api';
+import { languages } from '../services/i18n';
 
 interface SettingsFormData {
   first_name: string;
@@ -24,6 +26,7 @@ interface NotificationSettings {
 }
 
 const Settings: React.FC = () => {
+  const { t, i18n } = useTranslation();
   const [activeTab, setActiveTab] = useState<'profile' | 'store' | 'notifications' | 'appearance'>('profile');
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [formData, setFormData] = useState<SettingsFormData>({
@@ -45,6 +48,7 @@ const Settings: React.FC = () => {
   });
 
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
@@ -103,7 +107,18 @@ const Settings: React.FC = () => {
     setTheme(newTheme);
     localStorage.setItem('billagent_theme', newTheme);
     document.documentElement.className = newTheme;
-    showMessage('success', `${newTheme === 'dark' ? 'Dark' : 'Light'} mode enabled`);
+    showMessage('success', t('settings.messages.themeUpdated'));
+  };
+
+  const handleLanguageChange = async (langCode: string) => {
+    try {
+      await i18n.changeLanguage(langCode);
+      setCurrentLanguage(langCode);
+      localStorage.setItem('billagent_language', langCode);
+      showMessage('success', t('settings.messages.languageUpdated'));
+    } catch (error) {
+      showMessage('error', t('settings.messages.updateFailed'));
+    }
   };
 
   const handleProfileSubmit = async (e: React.FormEvent) => {
@@ -145,17 +160,17 @@ const Settings: React.FC = () => {
   };
 
   const tabs = [
-    { id: 'profile', label: 'Profile', icon: User },
-    { id: 'store', label: 'Store', icon: Store },
-    { id: 'notifications', label: 'Notifications', icon: Bell },
-    { id: 'appearance', label: 'Appearance', icon: Palette },
+    { id: 'profile', label: t('settings.tabs.profile'), icon: User },
+    { id: 'store', label: t('settings.tabs.store'), icon: Store },
+    { id: 'notifications', label: t('settings.tabs.notifications'), icon: Bell },
+    { id: 'appearance', label: t('settings.tabs.appearance'), icon: Palette },
   ];
 
   return (
     <div className="w-full max-w-5xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Settings</h1>
+        <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">{t('settings.title')}</h1>
         <p className="text-slate-600 dark:text-white/60">Manage your account preferences and configurations</p>
       </div>
 
@@ -406,11 +421,11 @@ const Settings: React.FC = () => {
           {/* Appearance Tab */}
           {activeTab === 'appearance' && (
             <div className="glass-card p-6 rounded-2xl">
-              <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-6">Appearance Settings</h2>
+              <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-6">{t('settings.appearance.title')}</h2>
               
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-medium text-slate-900 dark:text-white mb-4">Theme</h3>
+                  <h3 className="font-medium text-slate-900 dark:text-white mb-4">{t('settings.appearance.theme')}</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <button
                       onClick={() => handleThemeChange('dark')}
@@ -421,7 +436,7 @@ const Settings: React.FC = () => {
                       }`}
                     >
                       <Moon size={32} className="mx-auto mb-3 text-slate-700 dark:text-white" />
-                      <p className="font-medium text-slate-800 dark:text-white">Dark Mode</p>
+                      <p className="font-medium text-slate-800 dark:text-white">{t('settings.appearance.darkMode')}</p>
                       <p className="text-sm text-slate-500 dark:text-white/60 mt-1">Easy on the eyes</p>
                     </button>
                     <button
@@ -433,15 +448,44 @@ const Settings: React.FC = () => {
                       }`}
                     >
                       <Sun size={32} className="mx-auto mb-3 text-slate-700 dark:text-white" />
-                      <p className="font-medium text-slate-800 dark:text-white">Light Mode</p>
+                      <p className="font-medium text-slate-800 dark:text-white">{t('settings.appearance.lightMode')}</p>
                       <p className="text-sm text-slate-500 dark:text-white/60 mt-1">Bright and clear</p>
                     </button>
                   </div>
                 </div>
 
+                <div>
+                  <h3 className="font-medium text-slate-900 dark:text-white mb-4">{t('settings.appearance.language')}</h3>
+                  <p className="text-sm text-slate-600 dark:text-white/60 mb-4">{t('settings.appearance.selectLanguage')}</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {Object.entries(languages).map(([code, { name, flag, dir }]) => (
+                      <button
+                        key={code}
+                        onClick={() => handleLanguageChange(code)}
+                        className={`p-4 rounded-xl border-2 transition-all text-left ${
+                          currentLanguage === code
+                            ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20'
+                            : 'border-slate-200 dark:border-white/10 hover:border-blue-400'
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="text-3xl">{flag}</span>
+                          <div>
+                            <p className="font-medium text-slate-900 dark:text-white">{name}</p>
+                            <p className="text-xs text-slate-600 dark:text-white/60">{code.toUpperCase()}</p>
+                          </div>
+                          {currentLanguage === code && (
+                            <Check size={20} className="ml-auto text-blue-600" />
+                          )}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
                 <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
                   <p className="text-sm text-blue-700 dark:text-blue-300">
-                    <strong>Tip:</strong> You can also toggle theme using the button in the top navigation bar.
+                    <strong>Tip:</strong> You can also toggle theme using the button in the top navigation bar. Language changes are powered by Google Gemini AI for natural translations.
                   </p>
                 </div>
               </div>

@@ -14,6 +14,7 @@ import {
   User,
   ChevronDown
 } from 'lucide-react';
+import './services/i18n';
 import { Page, Bill } from './types';
 import Dashboard from './components/Dashboard';
 import BillUpload from './components/BillUpload';

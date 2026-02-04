@@ -1,0 +1,162 @@
+{
+  "navigation": {
+    "dashboard": "डैशबोर्ड",
+    "upload": "अपलोड",
+    "history": "इतिहास",
+    "analytics": "विश्लेषण",
+    "settings": "सेटिंग्स",
+    "logout": "लॉगआउट"
+  },
+  "dashboard": {
+    "title": "व्यापार केंद्र",
+    "subtitle": "न्यूरल रिटेल इंटेलिजेंस (INR)",
+    "voiceAgent": "वॉयस एजेंट",
+    "processBatch": "बैच प्रोसेस करें",
+    "stats": {
+      "processed": "प्रोसेस किया गया",
+      "sales": "बिक्री (INR)",
+      "paperSaved": "कागज बचाया गया",
+      "confidence": "न्यूरल विश्वास"
+    },
+    "revenueDynamics": "राजस्व गतिशीलता",
+    "aiInsights": "AI अंतर्दृष्टि",
+    "sustainabilityAgent": "स्थिरता एजेंट",
+    "co2Avoided": "CO2 बचाया गया",
+    "sustainabilityMessage": "इन बिलों को डिजिटाइज़ करके, आपने {{count}} परिपक्व बरगद के पेड़ के बराबर बचाया है।",
+    "days": {
+      "mon": "सोम",
+      "tue": "मंगल",
+      "wed": "बुध",
+      "thu": "गुरु",
+      "fri": "शुक्र",
+      "sat": "शनि",
+      "sun": "रवि"
+    }
+  },
+  "billUpload": {
+    "title": "संपत्ति डिजिटाइज़ करें",
+    "subtitle": "एजेंटिक रीज़निंग • Gemini 3 • INR (₹)",
+    "agentsActive": "एजेंट सक्रिय",
+    "uploadTitle": "बिल इमेज अपलोड करें",
+    "uploadSubtitle": "अपनी रसीदें यहां कैप्चर या ड्रॉप करें",
+    "selectFile": "फ़ाइल चुनें",
+    "contextSelection": "संदर्भ चयन",
+    "contextSubtitle": "वर्गीकरण में लर्निंग एजेंट की सहायता करें",
+    "contextPlaceholder": "उदा. मुख्य स्टोर के लिए जैविक दाल की थोक खरीद...",
+    "analyzeButton": "न्यूरल स्कैन का विश्लेषण करें",
+    "runningMultiAgent": "मल्टी-एजेंट स्कैन चल रहा है",
+    "agentVerdict": "एजेंट का निर्णय",
+    "editItems": "निकाले गए आइटम संपादित करें",
+    "itemName": "आइटम का नाम",
+    "quantity": "मात्रा",
+    "price": "कीमत",
+    "total": "कुल",
+    "confidence": "विश्वास",
+    "grandTotal": "महायोग",
+    "saveToStore": "डिजिटल स्टोर में सहेजें",
+    "discard": "त्यागें",
+    "suggestions": {
+      "inventoryRestock": "इन्वेंटरी रीस्टॉक",
+      "utilityBill": "उपयोगिता बिल",
+      "officeMaintenance": "कार्यालय रखरखाव",
+      "bulkRawMaterials": "थोक कच्चा माल",
+      "techEquipment": "तकनीकी उपकरण"
+    }
+  },
+  "billHistory": {
+    "title": "बिल संग्रह",
+    "subtitle": "अपरिवर्तनीय न्यूरल लेजर",
+    "searchPlaceholder": "बिल खोजें...",
+    "filterAll": "सभी",
+    "filterVerified": "सत्यापित",
+    "filterPending": "लंबित",
+    "filterFlagged": "चिह्नित",
+    "noBills": "कोई बिल नहीं मिला",
+    "noBillsMessage": "अपलोड टैब का उपयोग करके अपना पहला बिल अपलोड करके शुरू करें",
+    "viewDetails": "विवरण देखें",
+    "items": "आइटम",
+    "confidence": "विश्वास"
+  },
+  "settings": {
+    "title": "सेटिंग्स",
+    "tabs": {
+      "profile": "प्रोफ़ाइल",
+      "store": "स्टोर",
+      "notifications": "सूचनाएं",
+      "appearance": "रूप-रंग"
+    },
+    "profile": {
+      "title": "प्रोफ़ाइल जानकारी",
+      "firstName": "पहला नाम",
+      "lastName": "अंतिम नाम",
+      "email": "ईमेल पता",
+      "editProfile": "प्रोफ़ाइल संपादित करें",
+      "saveChanges": "परिवर्तन सहेजें",
+      "cancel": "रद्द करें"
+    },
+    "store": {
+      "title": "स्टोर विवरण",
+      "storeName": "स्टोर का नाम",
+      "storeType": "स्टोर का प्रकार",
+      "storePhone": "स्टोर फ़ोन",
+      "storeAddress": "स्टोर का पता"
+    },
+    "notifications": {
+      "title": "सूचना प्राथमिकताएं",
+      "emailNotifications": "ईमेल सूचनाएं",
+      "emailDesc": "ईमेल के माध्यम से अपडेट प्राप्त करें",
+      "pushNotifications": "पुश सूचनाएं",
+      "pushDesc": "अपडेट के लिए ब्राउज़र सूचनाएं",
+      "billReminders": "बिल रिमाइंडर",
+      "billDesc": "लंबित बिल प्रोसेस करने के लिए मुझे याद दिलाएं",
+      "weeklyReports": "साप्ताहिक रिपोर्ट",
+      "weeklyDesc": "हर सप्ताह विश्लेषण का सारांश",
+      "soundEnabled": "ध्वनि प्रभाव",
+      "soundDesc": "सूचनाओं के लिए ध्वनि सक्षम करें"
+    },
+    "appearance": {
+      "title": "रूप-रंग सेटिंग्स",
+      "theme": "थीम",
+      "darkMode": "डार्क मोड",
+      "lightMode": "लाइट मोड",
+      "language": "भाषा",
+      "selectLanguage": "अपनी पसंदीदा भाषा चुनें"
+    },
+    "messages": {
+      "profileUpdated": "प्रोफ़ाइल सफलतापूर्वक अपडेट की गई",
+      "storeUpdated": "स्टोर विवरण अपडेट किया गया",
+      "notificationsUpdated": "सूचना सेटिंग्स अपडेट की गईं",
+      "themeUpdated": "थीम सफलतापूर्वक अपडेट की गई",
+      "languageUpdated": "भाषा सफलतापूर्वक अपडेट की गई",
+      "updateFailed": "सेटिंग्स अपडेट करने में विफल"
+    }
+  },
+  "auth": {
+    "login": "लॉगिन",
+    "register": "पंजीकरण करें",
+    "email": "ईमेल",
+    "password": "पासवर्ड",
+    "firstName": "पहला नाम",
+    "lastName": "अंतिम नाम",
+    "loginButton": "साइन इन करें",
+    "registerButton": "खाता बनाएं",
+    "noAccount": "खाता नहीं है?",
+    "haveAccount": "पहले से खाता है?",
+    "welcome": "वापस स्वागत है",
+    "getStarted": "शुरू करें"
+  },
+  "common": {
+    "loading": "लोड हो रहा है...",
+    "save": "सहेजें",
+    "cancel": "रद्द करें",
+    "edit": "संपादित करें",
+    "delete": "हटाएं",
+    "search": "खोजें",
+    "filter": "फ़िल्टर",
+    "close": "बंद करें",
+    "yes": "हां",
+    "no": "नहीं",
+    "error": "त्रुटि",
+    "success": "सफलता"
+  }
+}
