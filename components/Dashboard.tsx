@@ -51,25 +51,33 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
 
   const grandTotalSales = bills.reduce((acc, b) => acc + b.grandTotal, 0);
 
-  // Calculate vendor stats
-  const vendorStats = bills.reduce((acc, bill) => {
-    const vendor = bill.vendorName || 'Unknown';
-    if (!acc[vendor]) {
-      acc[vendor] = { total: 0, count: 0 };
-    }
-    acc[vendor].total += bill.grandTotal;
-    acc[vendor].count += 1;
+  // Calculate item stats (highest sold and lowest stock)
+  const itemStats = bills.reduce((acc, bill) => {
+    bill.items.forEach(item => {
+      const itemName = item.description || item.name || 'Unknown Item';
+      if (!acc[itemName]) {
+        acc[itemName] = {
+          totalQuantity: 0,
+          totalRevenue: 0,
+          // Mock stock data - in real app this would come from inventory system
+          stock: Math.floor(Math.random() * 100) + 10 // Random stock between 10-110
+        };
+      }
+      acc[itemName].totalQuantity += item.quantity;
+      acc[itemName].totalRevenue += (item.totalPrice || item.total || 0);
+    });
     return acc;
-  }, {} as Record<string, { total: number; count: number }>);
+  }, {} as Record<string, { totalQuantity: number; totalRevenue: number; stock: number }>);
 
-  const vendorEntries = Object.entries(vendorStats).map(([name, stats]) => ({
+  const itemEntries = Object.entries(itemStats).map(([name, stats]) => ({
     name,
-    total: stats.total,
-    count: stats.count
+    totalQuantity: stats.totalQuantity,
+    totalRevenue: stats.totalRevenue,
+    stock: stats.stock
   }));
 
-  const highestSaleVendor = vendorEntries.sort((a, b) => b.total - a.total)[0];
-  const lowestSaleVendor = vendorEntries.sort((a, b) => a.total - b.total)[0];
+  const highestSoldItem = itemEntries.sort((a, b) => b.totalQuantity - a.totalQuantity)[0];
+  const lowestStockItem = itemEntries.sort((a, b) => a.stock - b.stock)[0];
 
   const StatCard = ({ title, value, sub, icon: Icon, color }: any) => (
     <div className="tap-effect glass-card p-7 group hover:scale-[1.02] cursor-pointer">
@@ -114,16 +122,16 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
         <StatCard title="Sales (INR)" value={`₹${grandTotalSales.toLocaleString('en-IN')}`} sub="+22%" icon={TrendingUp} color="bg-emerald-500" />
         <StatCard
           title="Highest Sold"
-          value={highestSaleVendor ? highestSaleVendor.name.substring(0, 10) + (highestSaleVendor.name.length > 10 ? '...' : '') : 'N/A'}
-          sub={highestSaleVendor ? `₹${highestSaleVendor.total.toLocaleString('en-IN')}` : '₹0'}
+          value={highestSoldItem ? highestSoldItem.name.substring(0, 12) + (highestSoldItem.name.length > 12 ? '...' : '') : 'N/A'}
+          sub={highestSoldItem ? `${highestSoldItem.totalQuantity} units` : '0 units'}
           icon={TrendingUp}
           color="bg-purple-500"
         />
         <StatCard
-          title="Lowest Sold"
-          value={lowestSaleVendor ? lowestSaleVendor.name.substring(0, 10) + (lowestSaleVendor.name.length > 10 ? '...' : '') : 'N/A'}
-          sub={lowestSaleVendor ? `₹${lowestSaleVendor.total.toLocaleString('en-IN')}` : '₹0'}
-          icon={AlertCircle}
+          title="Lowest Stock"
+          value={lowestStockItem ? lowestStockItem.name.substring(0, 12) + (lowestStockItem.name.length > 12 ? '...' : '') : 'N/A'}
+          sub={lowestStockItem ? `${lowestStockItem.stock} left` : '0 left'}
+          icon={Package}
           color="bg-orange-500"
         />
       </div>

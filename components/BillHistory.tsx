@@ -13,12 +13,14 @@ import {
   FileText,
   ExternalLink,
   Printer,
-  FileDown
+  FileDown,
+  X
 } from 'lucide-react';
 import { Bill } from '../types';
 
 const BillHistory: React.FC<{ bills: Bill[] }> = ({ bills }) => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [previewBill, setPreviewBill] = useState<Bill | null>(null);
   const printRef = useRef<HTMLDivElement>(null);
 
   const exportToSheets = () => {
@@ -470,8 +472,8 @@ const BillHistory: React.FC<{ bills: Bill[] }> = ({ bills }) => {
         </div>
       </div>
 
-      <div className="glass-card">
-        <div className="overflow-x-auto">
+      <div className="glass-card overflow-visible">
+        <div className="overflow-x-auto overflow-y-visible">
           <table className="w-full text-left">
             <thead>
               <tr className="bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-white/40 text-[10px] uppercase tracking-widest font-bold">
@@ -570,7 +572,11 @@ const BillHistory: React.FC<{ bills: Bill[] }> = ({ bills }) => {
                             </div>
                           )}
                         </div>
-                        <button className="tap-effect p-2.5 bg-slate-100 dark:bg-white/5 text-slate-400 dark:text-white/40 hover:text-blue-500 dark:hover:text-white rounded-xl">
+                        <button
+                          onClick={() => setPreviewBill(bill)}
+                          className="tap-effect p-2.5 bg-slate-100 dark:bg-white/5 text-slate-400 dark:text-white/40 hover:text-blue-500 dark:hover:text-white rounded-xl"
+                          title="Preview Digital Bill"
+                        >
                           <ExternalLink size={16} />
                         </button>
                         <button className="tap-effect p-2.5 bg-slate-100 dark:bg-white/5 text-slate-400 dark:text-white/40 hover:text-rose-500 dark:hover:text-rose-400 rounded-xl">
@@ -585,6 +591,138 @@ const BillHistory: React.FC<{ bills: Bill[] }> = ({ bills }) => {
           </table>
         </div>
       </div>
+
+      {/* Preview Modal */}
+      {previewBill && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in"
+          onClick={() => setPreviewBill(null)}
+        >
+          <div
+            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-slate-900 rounded-3xl shadow-2xl m-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="sticky top-0 z-10 flex items-center justify-between p-6 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-white/10">
+              <div>
+                <h2 className="text-2xl font-bold text-slate-800 dark:text-white">Digital Bill Preview</h2>
+                <p className="text-sm text-slate-500 dark:text-white/50">Bill #{previewBill.billNumber || previewBill.id}</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    downloadBillAsPDF(previewBill);
+                    setPreviewBill(null);
+                  }}
+                  className="tap-effect flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-xl hover:bg-blue-200 dark:hover:bg-blue-500/20 transition-all"
+                >
+                  <FileDown size={16} />
+                  <span className="text-sm font-semibold">Download PDF</span>
+                </button>
+                <button
+                  onClick={() => {
+                    printBill(previewBill);
+                  }}
+                  className="tap-effect flex items-center gap-2 px-4 py-2 bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 rounded-xl hover:bg-purple-200 dark:hover:bg-purple-500/20 transition-all"
+                >
+                  <Printer size={16} />
+                  <span className="text-sm font-semibold">Print</span>
+                </button>
+                <button
+                  onClick={() => setPreviewBill(null)}
+                  className="tap-effect p-2 text-slate-400 dark:text-white/40 hover:text-slate-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 rounded-xl transition-all"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+            </div>
+
+            {/* Bill Preview Content */}
+            <div className="p-8">
+              <div className="max-w-3xl mx-auto border-2 border-blue-500 rounded-2xl overflow-hidden shadow-xl">
+                {/* Bill Header */}
+                <div className="bg-gradient-to-br from-blue-500 to-purple-600 text-white p-8 text-center">
+                  <h1 className="text-4xl font-bold mb-2">BillAgent Pro</h1>
+                  <p className="text-sm opacity-90">Digitalized Bill Document</p>
+                </div>
+
+                {/* Bill Info */}
+                <div className="p-8 bg-slate-50 dark:bg-slate-800/50 border-b-2 border-slate-200 dark:border-white/10">
+                  <div className="grid grid-cols-2 gap-6">
+                    <div>
+                      <p className="text-xs uppercase text-slate-500 dark:text-white/40 font-semibold mb-1">Bill Number</p>
+                      <p className="text-lg font-bold text-slate-800 dark:text-white">{previewBill.billNumber || previewBill.id}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase text-slate-500 dark:text-white/40 font-semibold mb-1">Date</p>
+                      <p className="text-lg font-bold text-slate-800 dark:text-white">{previewBill.date}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase text-slate-500 dark:text-white/40 font-semibold mb-1">Vendor Name</p>
+                      <p className="text-lg font-bold text-slate-800 dark:text-white">{previewBill.vendorName || 'General Store'}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs uppercase text-slate-500 dark:text-white/40 font-semibold mb-1">AI Confidence</p>
+                      <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-lg text-sm font-bold">
+                        {previewBill.overallConfidence || 95}% Match
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Items Table */}
+                <div className="p-8">
+                  <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-4 pb-2 border-b-2 border-slate-200 dark:border-white/10">Items</h3>
+                  <table className="w-full">
+                    <thead className="bg-slate-100 dark:bg-slate-800/50">
+                      <tr>
+                        <th className="px-4 py-3 text-left text-xs uppercase text-slate-500 dark:text-white/40 font-bold">Description</th>
+                        <th className="px-4 py-3 text-right text-xs uppercase text-slate-500 dark:text-white/40 font-bold">Qty</th>
+                        <th className="px-4 py-3 text-right text-xs uppercase text-slate-500 dark:text-white/40 font-bold">Unit Price</th>
+                        <th className="px-4 py-3 text-right text-xs uppercase text-slate-500 dark:text-white/40 font-bold">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {previewBill.items.map((item, idx) => (
+                        <tr key={idx} className="border-b border-slate-200 dark:border-white/10">
+                          <td className="px-4 py-3 text-sm text-slate-700 dark:text-white/80">{item.description || item.name || 'Item'}</td>
+                          <td className="px-4 py-3 text-sm text-right text-slate-700 dark:text-white/80">{item.quantity}</td>
+                          <td className="px-4 py-3 text-sm text-right text-slate-700 dark:text-white/80">₹{(item.unitPrice || item.price || 0).toFixed(2)}</td>
+                          <td className="px-4 py-3 text-sm text-right text-slate-700 dark:text-white/80">₹{(item.totalPrice || item.total || 0).toFixed(2)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Totals */}
+                <div className="p-8 bg-slate-50 dark:bg-slate-800/50 border-t-2 border-slate-200 dark:border-white/10">
+                  <div className="space-y-3">
+                    <div className="flex justify-between text-base">
+                      <span className="text-slate-600 dark:text-white/60">Subtotal:</span>
+                      <span className="font-semibold text-slate-800 dark:text-white">₹{(previewBill.totalAmount || 0).toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between text-base">
+                      <span className="text-slate-600 dark:text-white/60">Tax Amount:</span>
+                      <span className="font-semibold text-slate-800 dark:text-white">₹{(previewBill.taxAmount || 0).toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between text-xl font-bold pt-3 border-t-2 border-blue-500 text-blue-600 dark:text-blue-400">
+                      <span>Grand Total:</span>
+                      <span>₹{(previewBill.grandTotal || previewBill.totalAmount || 0).toFixed(2)}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer */}
+                <div className="p-6 bg-slate-100 dark:bg-slate-800/50 text-center text-xs text-slate-500 dark:text-white/40">
+                  <p>This is a digitalized version of the original bill, processed by BillAgent Pro AI</p>
+                  <p className="mt-1">Generated on {new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
