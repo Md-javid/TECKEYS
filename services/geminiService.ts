@@ -117,3 +117,79 @@ export const generateBusinessInsights = async (bills: Bill[]): Promise<BusinessI
 
   return JSON.parse(response.text);
 };
+
+export const translateText = async (text: string, targetLanguage: string, context?: string): Promise<string> => {
+  const model = "gemini-3-flash-preview";
+  
+  const languageNames: Record<string, string> = {
+    'en': 'English',
+    'es': 'Spanish',
+    'hi': 'Hindi',
+    'ta': 'Tamil',
+    'fr': 'French',
+    'ar': 'Arabic',
+    'zh': 'Chinese',
+    'pt': 'Portuguese',
+    'de': 'German',
+    'ja': 'Japanese',
+    'ko': 'Korean'
+  };
+
+  const targetLangName = languageNames[targetLanguage] || targetLanguage;
+  const contextNote = context ? `Context: ${context}. ` : '';
+
+  const response = await ai.models.generateContent({
+    model,
+    contents: `${contextNote}Translate the following text to ${targetLangName}. Maintain the tone and business terminology appropriate for a retail/billing application. Only return the translated text without any explanation:\n\n${text}`,
+    config: {
+      systemInstruction: `You are a professional translator specializing in business and retail terminology. Provide natural, culturally appropriate translations that maintain the original meaning and tone.`
+    }
+  });
+
+  return response.text.trim();
+};
+
+export const getLocalizedInsights = async (bills: Bill[], language: string): Promise<BusinessInsight[]> => {
+  const model = "gemini-3-flash-preview";
+  const simplified = bills.map(b => ({ vendor: b.vendorName, total: b.grandTotal, date: b.date }));
+
+  const languageNames: Record<string, string> = {
+    'en': 'English',
+    'es': 'Spanish',
+    'hi': 'Hindi',
+    'ta': 'Tamil',
+    'fr': 'French',
+    'ar': 'Arabic',
+    'zh': 'Chinese',
+    'pt': 'Portuguese',
+    'de': 'German',
+    'ja': 'Japanese',
+    'ko': 'Korean'
+  };
+
+  const targetLangName = languageNames[language] || 'English';
+
+  const response = await ai.models.generateContent({
+    model,
+    contents: `Analyze these bills and provide 3 actionable insights in ${targetLangName}: ${JSON.stringify(simplified)}`,
+    config: {
+      systemInstruction: `You are a Retail Business Analyst. Provide insights in ${targetLangName} that are culturally appropriate and use proper business terminology. Always include currency amounts in INR (₹).`,
+      responseMimeType: "application/json",
+      responseSchema: {
+        type: Type.ARRAY,
+        items: {
+          type: Type.OBJECT,
+          properties: {
+            type: { type: Type.STRING, enum: ["TREND", "ALERT", "RECOMMENDATION"] },
+            title: { type: Type.STRING },
+            content: { type: Type.STRING },
+            impact: { type: Type.STRING, enum: ["POSITIVE", "NEUTRAL", "NEGATIVE"] }
+          },
+          required: ["type", "title", "content", "impact"]
+        }
+      }
+    }
+  });
+
+  return JSON.parse(response.text);
+};

@@ -1,0 +1,162 @@
+{
+  "navigation": {
+    "dashboard": "لوحة التحكم",
+    "upload": "رفع",
+    "history": "السجل",
+    "analytics": "التحليلات",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج"
+  },
+  "dashboard": {
+    "title": "مركز الأعمال",
+    "subtitle": "الذكاء العصبي للبيع بالتجزئة (INR)",
+    "voiceAgent": "وكيل الصوت",
+    "processBatch": "معالجة الدفعة",
+    "stats": {
+      "processed": "تمت المعالجة",
+      "sales": "المبيعات (INR)",
+      "paperSaved": "الورق الموفر",
+      "confidence": "الثقة العصبية"
+    },
+    "revenueDynamics": "ديناميكيات الإيرادات",
+    "aiInsights": "رؤى الذكاء الاصطناعي",
+    "sustainabilityAgent": "وكيل الاستدامة",
+    "co2Avoided": "ثاني أكسيد الكربون المتجنب",
+    "sustainabilityMessage": "من خلال رقمنة هذه الفواتير، وفرت ما يعادل {{count}} شتلة شجرة بانيان ناضجة.",
+    "days": {
+      "mon": "الإثنين",
+      "tue": "الثلاثاء",
+      "wed": "الأربعاء",
+      "thu": "الخميس",
+      "fri": "الجمعة",
+      "sat": "السبت",
+      "sun": "الأحد"
+    }
+  },
+  "billUpload": {
+    "title": "رقمنة الأصول",
+    "subtitle": "التفكير الوكيل • Gemini 3 • INR (₹)",
+    "agentsActive": "الوكلاء النشطون",
+    "uploadTitle": "رفع صورة الفاتورة",
+    "uploadSubtitle": "التقط أو أسقط إيصالاتك هنا",
+    "selectFile": "اختر الملف",
+    "contextSelection": "اختيار السياق",
+    "contextSubtitle": "ساعد وكيل التعلم في التصنيف",
+    "contextPlaceholder": "مثال: شراء بالجملة من العدس العضوي للمتجر الرئيسي...",
+    "analyzeButton": "تحليل المسح العصبي",
+    "runningMultiAgent": "تشغيل المسح متعدد الوكلاء",
+    "agentVerdict": "حكم الوكيل",
+    "editItems": "تحرير العناصر المستخرجة",
+    "itemName": "اسم العنصر",
+    "quantity": "الكمية",
+    "price": "السعر",
+    "total": "المجموع",
+    "confidence": "الثقة",
+    "grandTotal": "المجموع الإجمالي",
+    "saveToStore": "حفظ في المتجر الرقمي",
+    "discard": "تجاهل",
+    "suggestions": {
+      "inventoryRestock": "إعادة تخزين المخزون",
+      "utilityBill": "فاتورة المرافق",
+      "officeMaintenance": "صيانة المكتب",
+      "bulkRawMaterials": "المواد الخام بالجملة",
+      "techEquipment": "المعدات التقنية"
+    }
+  },
+  "billHistory": {
+    "title": "أرشيف الفواتير",
+    "subtitle": "دفتر الأستاذ العصبي الثابت",
+    "searchPlaceholder": "البحث عن الفواتير...",
+    "filterAll": "الكل",
+    "filterVerified": "تم التحقق منها",
+    "filterPending": "قيد الانتظار",
+    "filterFlagged": "تم وضع علامة عليها",
+    "noBills": "لم يتم العثور على فواتير",
+    "noBillsMessage": "ابدأ بتحميل فاتورتك الأولى باستخدام علامة التبويب رفع",
+    "viewDetails": "عرض التفاصيل",
+    "items": "عناصر",
+    "confidence": "الثقة"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "tabs": {
+      "profile": "الملف الشخصي",
+      "store": "المتجر",
+      "notifications": "الإشعارات",
+      "appearance": "المظهر"
+    },
+    "profile": {
+      "title": "معلومات الملف الشخصي",
+      "firstName": "الاسم الأول",
+      "lastName": "اسم العائلة",
+      "email": "عنوان البريد الإلكتروني",
+      "editProfile": "تحرير الملف الشخصي",
+      "saveChanges": "حفظ التغييرات",
+      "cancel": "إلغاء"
+    },
+    "store": {
+      "title": "تفاصيل المتجر",
+      "storeName": "اسم المتجر",
+      "storeType": "نوع المتجر",
+      "storePhone": "هاتف المتجر",
+      "storeAddress": "عنوان المتجر"
+    },
+    "notifications": {
+      "title": "تفضيلات الإشعارات",
+      "emailNotifications": "إشعارات البريد الإلكتروني",
+      "emailDesc": "تلقي التحديثات عبر البريد الإلكتروني",
+      "pushNotifications": "الإشعارات الفورية",
+      "pushDesc": "إشعارات المتصفح للتحديثات",
+      "billReminders": "تذكيرات الفواتير",
+      "billDesc": "ذكرني بمعالجة الفواتير المعلقة",
+      "weeklyReports": "التقارير الأسبوعية",
+      "weeklyDesc": "ملخص التحليلات كل أسبوع",
+      "soundEnabled": "المؤثرات الصوتية",
+      "soundDesc": "تمكين الصوت للإشعارات"
+    },
+    "appearance": {
+      "title": "إعدادات المظهر",
+      "theme": "السمة",
+      "darkMode": "الوضع الداكن",
+      "lightMode": "الوضع الفاتح",
+      "language": "اللغة",
+      "selectLanguage": "اختر لغتك المفضلة"
+    },
+    "messages": {
+      "profileUpdated": "تم تحديث الملف الشخصي بنجاح",
+      "storeUpdated": "تم تحديث تفاصيل المتجر",
+      "notificationsUpdated": "تم تحديث إعدادات الإشعارات",
+      "themeUpdated": "تم تحديث السمة بنجاح",
+      "languageUpdated": "تم تحديث اللغة بنجاح",
+      "updateFailed": "فشل تحديث الإعدادات"
+    }
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "register": "التسجيل",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "loginButton": "تسجيل الدخول",
+    "registerButton": "إنشاء حساب",
+    "noAccount": "ليس لديك حساب؟",
+    "haveAccount": "لديك حساب بالفعل؟",
+    "welcome": "مرحبا بعودتك",
+    "getStarted": "البدء"
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "edit": "تحرير",
+    "delete": "حذف",
+    "search": "بحث",
+    "filter": "تصفية",
+    "close": "إغلاق",
+    "yes": "نعم",
+    "no": "لا",
+    "error": "خطأ",
+    "success": "نجاح"
+  }
+}

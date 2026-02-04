@@ -1,0 +1,162 @@
+{
+  "navigation": {
+    "dashboard": "Dashboard",
+    "upload": "Upload",
+    "history": "History",
+    "analytics": "Analytics",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "dashboard": {
+    "title": "Business Hub",
+    "subtitle": "Neural retail intelligence (INR)",
+    "voiceAgent": "Voice Agent",
+    "processBatch": "Process Batch",
+    "stats": {
+      "processed": "Processed",
+      "sales": "Sales (INR)",
+      "paperSaved": "Paper Saved",
+      "confidence": "Neural Confidence"
+    },
+    "revenueDynamics": "Revenue Dynamics",
+    "aiInsights": "AI Insights",
+    "sustainabilityAgent": "Sustainability Agent",
+    "co2Avoided": "CO2 Avoided",
+    "sustainabilityMessage": "By digitizing these bills, you've saved the equivalent of {{count}} mature banyan tree seedlings.",
+    "days": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    }
+  },
+  "billUpload": {
+    "title": "Digitize Asset",
+    "subtitle": "Agentic Reasoning • Gemini 3 • INR (₹)",
+    "agentsActive": "Agents Active",
+    "uploadTitle": "Upload Bill Image",
+    "uploadSubtitle": "Capture or drop your receipts here",
+    "selectFile": "Select Store File",
+    "contextSelection": "Context Selection",
+    "contextSubtitle": "Assist the Learning Agent in categorization",
+    "contextPlaceholder": "e.g. Bulk purchase of organic lentils for the main store...",
+    "analyzeButton": "Analyze Neural Scan",
+    "runningMultiAgent": "Running Multi-Agent Scan",
+    "agentVerdict": "Agent Verdict",
+    "editItems": "Edit Extracted Items",
+    "itemName": "Item Name",
+    "quantity": "Qty",
+    "price": "Price",
+    "total": "Total",
+    "confidence": "Confidence",
+    "grandTotal": "Grand Total",
+    "saveToStore": "Save to Digital Store",
+    "discard": "Discard",
+    "suggestions": {
+      "inventoryRestock": "Inventory Restock",
+      "utilityBill": "Utility Bill",
+      "officeMaintenance": "Office Maintenance",
+      "bulkRawMaterials": "Bulk Raw Materials",
+      "techEquipment": "Tech Equipment"
+    }
+  },
+  "billHistory": {
+    "title": "Bill Archive",
+    "subtitle": "Immutable Neural Ledger",
+    "searchPlaceholder": "Search bills...",
+    "filterAll": "All",
+    "filterVerified": "Verified",
+    "filterPending": "Pending",
+    "filterFlagged": "Flagged",
+    "noBills": "No bills found",
+    "noBillsMessage": "Start by uploading your first bill using the Upload tab",
+    "viewDetails": "View Details",
+    "items": "items",
+    "confidence": "Confidence"
+  },
+  "settings": {
+    "title": "Settings",
+    "tabs": {
+      "profile": "Profile",
+      "store": "Store",
+      "notifications": "Notifications",
+      "appearance": "Appearance"
+    },
+    "profile": {
+      "title": "Profile Information",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email Address",
+      "editProfile": "Edit Profile",
+      "saveChanges": "Save Changes",
+      "cancel": "Cancel"
+    },
+    "store": {
+      "title": "Store Details",
+      "storeName": "Store Name",
+      "storeType": "Store Type",
+      "storePhone": "Store Phone",
+      "storeAddress": "Store Address"
+    },
+    "notifications": {
+      "title": "Notification Preferences",
+      "emailNotifications": "Email Notifications",
+      "emailDesc": "Receive updates via email",
+      "pushNotifications": "Push Notifications",
+      "pushDesc": "Browser notifications for updates",
+      "billReminders": "Bill Reminders",
+      "billDesc": "Remind me to process pending bills",
+      "weeklyReports": "Weekly Reports",
+      "weeklyDesc": "Summary of analytics every week",
+      "soundEnabled": "Sound Effects",
+      "soundDesc": "Enable sound for notifications"
+    },
+    "appearance": {
+      "title": "Appearance Settings",
+      "theme": "Theme",
+      "darkMode": "Dark Mode",
+      "lightMode": "Light Mode",
+      "language": "Language",
+      "selectLanguage": "Select your preferred language"
+    },
+    "messages": {
+      "profileUpdated": "Profile updated successfully",
+      "storeUpdated": "Store details updated successfully",
+      "notificationsUpdated": "Notification settings updated",
+      "themeUpdated": "Theme updated successfully",
+      "languageUpdated": "Language updated successfully",
+      "updateFailed": "Failed to update settings"
+    }
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "loginButton": "Sign In",
+    "registerButton": "Create Account",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "welcome": "Welcome Back",
+    "getStarted": "Get Started"
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "filter": "Filter",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "error": "Error",
+    "success": "Success"
+  }
+}

@@ -26,11 +26,13 @@ import {
   Tooltip, 
   ResponsiveContainer
 } from 'recharts';
+import { useTranslation } from 'react-i18next';
 import { Bill, Page, BusinessInsight } from '../types';
 // Fixed: Removed non-existent export 'generateStorytellingAudio' from the service import
-import { generateBusinessInsights } from '../services/geminiService';
+import { getLocalizedInsights } from '../services/geminiService';
 
 const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> = ({ bills, onNavigate }) => {
+  const { t, i18n } = useTranslation();
   const [insights, setInsights] = useState<BusinessInsight[]>([]);
   const [isLoadingInsights, setIsLoadingInsights] = useState(false);
   const [isStoryMode, setIsStoryMode] = useState(false);
@@ -40,12 +42,12 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
     if (bills.length > 0) {
       loadInsights();
     }
-  }, [bills]);
+  }, [bills, i18n.language]);
 
   const loadInsights = async () => {
     setIsLoadingInsights(true);
     try {
-      const data = await generateBusinessInsights(bills);
+      const data = await getLocalizedInsights(bills, i18n.language);
       setInsights(data);
     } catch (e) {
       console.error(e);
@@ -94,8 +96,8 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-6 duration-700">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <h1 className="text-4xl font-bold text-white/90 tracking-tight">Business Hub</h1>
-          <p className="text-white/50 mt-1.5 text-lg">Neural retail intelligence (INR)</p>
+          <h1 className="text-4xl font-bold text-white/90 tracking-tight">{t('dashboard.title')}</h1>
+          <p className="text-white/50 mt-1.5 text-lg">{t('dashboard.subtitle')}</p>
         </div>
         <div className="flex gap-4">
           <button 
@@ -107,30 +109,30 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
             }`}
           >
             <MessageSquareQuote size={20} />
-            Voice Agent
+            {t('dashboard.voiceAgent')}
           </button>
           <button 
             onClick={() => onNavigate(Page.Process)}
             className="gem-button flex items-center gap-2.5 px-7 py-4"
           >
             <Package size={20} />
-            Process Batch
+            {t('dashboard.processBatch')}
           </button>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard title="Processed" value={bills.length} sub="+8%" icon={CheckCircle2} color="bg-blue-500" />
-        <StatCard title="Sales (INR)" value={`₹${grandTotalSales.toLocaleString('en-IN')}`} sub="+22%" icon={TrendingUp} color="bg-emerald-500" />
-        <StatCard title="Paper Saved" value={`${(bills.length * 0.2).toFixed(1)}kg`} sub="+100%" icon={Leaf} color="bg-teal-500" />
-        <StatCard title="Neural Confidence" value="97.4%" sub="+2%" icon={Zap} color="bg-amber-500" />
+        <StatCard title={t('dashboard.stats.processed')} value={bills.length} sub="+8%" icon={CheckCircle2} color="bg-blue-500" />
+        <StatCard title={t('dashboard.stats.sales')} value={`₹${grandTotalSales.toLocaleString('en-IN')}`} sub="+22%" icon={TrendingUp} color="bg-emerald-500" />
+        <StatCard title={t('dashboard.stats.paperSaved')} value={`${(bills.length * 0.2).toFixed(1)}kg`} sub="+100%" icon={Leaf} color="bg-teal-500" />
+        <StatCard title={t('dashboard.stats.confidence')} value="97.4%" sub="+2%" icon={Zap} color="bg-amber-500" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
           <div className="glass-card p-9">
             <div className="flex items-center justify-between mb-10">
-              <h2 className="text-2xl font-bold text-white/90 tracking-tight">Revenue Dynamics</h2>
+              <h2 className="text-2xl font-bold text-white/90 tracking-tight">{t('dashboard.revenueDynamics')}</h2>
               <div className="p-1.5 bg-white/5 rounded-2xl flex gap-1.5 border border-white/10">
                 <button className="tap-effect px-5 py-2 rounded-xl text-xs font-bold bg-white/10 shadow-lg text-white">LIVE</button>
                 <button className="tap-effect px-5 py-2 rounded-xl text-xs font-bold text-white/40 hover:text-white/70">7D</button>
@@ -139,9 +141,13 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
             <div className="h-[340px]">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={[
-                  { name: 'Mon', sales: 4000 }, { name: 'Tue', sales: 3000 }, { name: 'Wed', sales: 6000 },
-                  { name: 'Thu', sales: 4780 }, { name: 'Fri', sales: 5890 }, { name: 'Sat', sales: 8390 },
-                  { name: 'Sun', sales: 7490 },
+                  { name: t('dashboard.days.mon'), sales: 4000 }, 
+                  { name: t('dashboard.days.tue'), sales: 3000 }, 
+                  { name: t('dashboard.days.wed'), sales: 6000 },
+                  { name: t('dashboard.days.thu'), sales: 4780 }, 
+                  { name: t('dashboard.days.fri'), sales: 5890 }, 
+                  { name: t('dashboard.days.sat'), sales: 8390 },
+                  { name: t('dashboard.days.sun'), sales: 7490 },
                 ]}>
                   <defs>
                     <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
@@ -169,7 +175,7 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-3">
                 <Sparkles className="text-amber-400" size={26} />
-                <h2 className="text-2xl font-bold text-white/90 tracking-tight">AI Insights</h2>
+                <h2 className="text-2xl font-bold text-white/90 tracking-tight">{t('dashboard.aiInsights')}</h2>
               </div>
               {isLoadingInsights && <Loader2 size={20} className="animate-spin text-white/30" />}
             </div>
@@ -195,17 +201,17 @@ const Dashboard: React.FC<{ bills: Bill[], onNavigate: (page: Page) => void }> =
           <div className="glass-card p-9 bg-teal-500/5 border-teal-500/20">
             <div className="flex items-center gap-3 mb-6">
               <Leaf className="text-teal-400" size={24} />
-              <h2 className="text-lg font-bold text-white">Sustainability Agent</h2>
+              <h2 className="text-lg font-bold text-white">{t('dashboard.sustainabilityAgent')}</h2>
             </div>
             <div className="space-y-4">
               <div className="flex justify-between items-center">
-                <span className="text-white/40 text-sm">CO2 Avoided</span>
+                <span className="text-white/40 text-sm">{t('dashboard.co2Avoided')}</span>
                 <span className="text-teal-400 font-bold">~{(bills.length * 1.4).toFixed(1)}kg</span>
               </div>
               <div className="h-2 bg-white/5 rounded-full overflow-hidden">
                 <div className="h-full bg-teal-500 w-[65%]" />
               </div>
-              <p className="text-xs text-white/30 italic">"By digitizing these bills, you've saved the equivalent of 3 mature banyan tree seedlings."</p>
+              <p className="text-xs text-white/30 italic">"{t('dashboard.sustainabilityMessage', { count: 3 })}"</p>
             </div>
           </div>
         </div>
